@@ -2,17 +2,16 @@
   "name": "timesheet_with_clients",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite",
     "check-typescript": "tsc --noEmit --skipLibCheck",
-    "pre-commit": "yarn check-typescript && yarn eslint-fix --max-warnings=56 && yarn stylelint:fix",
     "eslint": "eslint --ext .js,.jsx,.ts,.tsx src/ --max-warnings 0",
     "eslint-fix": "eslint --ext .js,.jsx,.ts,.tsx src/ --fix",
     "stylelint:fix": "stylelint \"src/**/*{.css,.scss}\" --fix",
     "prepare": "husky install",
     "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "pre-commit": "yarn check-typescript && yarn eslint-fix --max-warnings=10 && yarn stylelint:fix"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -28,7 +27,9 @@
     "@typescript-eslint/eslint-plugin": "^7.13.1",
     "@typescript-eslint/parser": "^7.13.1",
     "@vitejs/plugin-react": "^4.3.1",
-    "eslint": "^9.5.0",
+    "eslint": "8.49.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^18.0.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-boundaries": "^4.2.1",
     "eslint-plugin-import": "^2.29.1",
@@ -40,6 +41,7 @@
     "eslint-plugin-simple-import-sort": "^12.1.0",
     "eslint-plugin-unused-imports": "^4.0.0",
     "husky": "^9.0.11",
+    "prettier": "^3.3.2",
     "stylelint": "^16.6.1",
     "stylelint-config-standard-scss": "^13.1.0",
     "stylelint-order": "^6.0.4",
