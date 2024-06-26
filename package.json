@@ -1,0 +1,50 @@
+{
+  "name": "timesheet_with_clients",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "check-typescript": "tsc --noEmit --skipLibCheck",
+    "pre-commit": "yarn check-typescript && yarn eslint-fix --max-warnings=56 && yarn stylelint:fix",
+    "eslint": "eslint --ext .js,.jsx,.ts,.tsx src/ --max-warnings 0",
+    "eslint-fix": "eslint --ext .js,.jsx,.ts,.tsx src/ --fix",
+    "stylelint:fix": "stylelint \"src/**/*{.css,.scss}\" --fix",
+    "prepare": "husky install",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "vite-plugin-environment": "^1.1.3",
+    "vite-plugin-node-polyfills": "^0.22.0",
+    "vite-plugin-svgr": "^4.2.0"
+  },
+  "devDependencies": {
+    "@feature-sliced/eslint-config": "^0.1.1",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^7.13.1",
+    "@typescript-eslint/parser": "^7.13.1",
+    "@vitejs/plugin-react": "^4.3.1",
+    "eslint": "^9.5.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-boundaries": "^4.2.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jsx-a11y": "^6.9.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-react": "^7.34.3",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.7",
+    "eslint-plugin-simple-import-sort": "^12.1.0",
+    "eslint-plugin-unused-imports": "^4.0.0",
+    "husky": "^9.0.11",
+    "stylelint": "^16.6.1",
+    "stylelint-config-standard-scss": "^13.1.0",
+    "stylelint-order": "^6.0.4",
+    "stylelint-scss": "^6.3.2",
+    "typescript": "^5.2.2",
+    "vite": "^5.3.1"
+  }
+}
