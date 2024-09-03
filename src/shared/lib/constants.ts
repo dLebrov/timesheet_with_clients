@@ -1,4 +1,4 @@
-import { IPaths } from './lib';
+import { IPaths } from './types';
 
 export const PATH: IPaths = {
   MAIN: { path: '', label: 'Главная' },
