@@ -30,7 +30,7 @@ const authSlice = createSlice({
 });
 
 export const userActions = {
-  ...authSlice.reducer,
+  ...authSlice.actions,
   ...extraActions,
 };
 

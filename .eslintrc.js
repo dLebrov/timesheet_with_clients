@@ -16,6 +16,7 @@ module.exports = {
     project: './tsconfig.json',
   },
   rules: {
+    'import/order': 0,
     'import/no-internal-modules': 0,
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',

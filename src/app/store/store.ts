@@ -1,10 +1,12 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
+import logger from 'redux-logger';
 
 import { mainReducer } from './reducer';
 
 const store = configureStore({
   reducer: mainReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }).concat(logger),
 });
 
 export type IRootState = ReturnType<typeof store.getState>;

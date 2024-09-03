@@ -1,14 +1,14 @@
-import { defineConfig } from "vite";
-import EnvironmentPlugin from "vite-plugin-environment";
-import react from "@vitejs/plugin-react";
-import svgr from "vite-plugin-svgr";
-import { nodePolyfills } from "vite-plugin-node-polyfills";
+import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
+import EnvironmentPlugin from 'vite-plugin-environment';
+import { nodePolyfills } from 'vite-plugin-node-polyfills';
+import svgr from 'vite-plugin-svgr';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     nodePolyfills({
-      exclude: ["fs"],
+      exclude: ['fs'],
       globals: {
         Buffer: true,
         global: true,
@@ -17,11 +17,11 @@ export default defineConfig({
       protocolImports: true,
     }),
     react(),
-    EnvironmentPlugin("all"),
     svgr(),
+    EnvironmentPlugin('all'),
   ],
   resolve: {
-    alias: [{ find: "@", replacement: "/src" }],
+    alias: [{ find: '@', replacement: '/src' }],
   },
   server: {
     port: 3000,
@@ -29,7 +29,7 @@ export default defineConfig({
     strictPort: true,
   },
   build: {
-    target: "ES2022",
-    outDir: "build",
+    target: 'ES2022',
+    outDir: 'build',
   },
 });
