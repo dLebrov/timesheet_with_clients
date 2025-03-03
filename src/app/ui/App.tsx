@@ -1,8 +1,8 @@
 import { ConfigProvider, Layout, theme } from 'antd';
 import { HashRouter } from 'react-router-dom';
 
-import { useCustomTheme } from '@/entities/theme/hooks/useCustomTheme';
-import { ThemeType } from '@/entities/theme/lib/types';
+import { useCustomTheme } from '@/entities/theme';
+import { ThemeType } from '@/entities/theme';
 import { CustomContent } from '@/widgets/CustomContent';
 import { CustomFooter } from '@/widgets/CustomFooter';
 import { CustomHeader } from '@/widgets/CustomHeader';

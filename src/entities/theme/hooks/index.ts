@@ -1,1 +1,1 @@
-export * from './useCustomTheme';
+export { useCustomTheme } from './useCustomTheme';
