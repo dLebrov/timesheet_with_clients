@@ -1,4 +1,5 @@
 import { Button } from 'antd';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledContainer = styled('div')`
@@ -16,11 +17,20 @@ const StyledText = styled('div')`
 `;
 
 export const MainPage = () => {
+  const navigate = useNavigate();
+  const handleLogin = () => {
+    navigate('/login');
+  };
+  const handleRegister = () => {
+    navigate('/register');
+  };
+
   return (
     <StyledContainer>
-      <StyledText>Приветствую вас в системе учета клиентов</StyledText>
+      <StyledText>Приветствую вас в системе учёта клиентов</StyledText>
       <StyledText>
-        Вам необходимо <Button>Войти</Button> или <Button>Зарегистрироваться</Button>
+        Вам необходимо <Button onClick={handleLogin}>Войти</Button> или{' '}
+        <Button onClick={handleRegister}>Зарегистрироваться</Button>
       </StyledText>
     </StyledContainer>
   );

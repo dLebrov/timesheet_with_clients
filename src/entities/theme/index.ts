@@ -1,3 +1,4 @@
 export { useCustomTheme } from './hooks';
-export * from './lib';
-export * from './model';
+export { ThemeType } from './lib/types';
+export type { TInitialStateTheme } from './model/themeSlice';
+export { themeActions } from './model/themeSlice';

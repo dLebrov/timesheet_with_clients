@@ -1,15 +1,17 @@
 import { Route, Routes } from 'react-router-dom';
 
 import { MainPage } from '@/pages/MainPage';
-import { PATH } from '@/shared/lib';
+import { EPaths } from '@/shared/lib';
+import { Login } from '@/widgets/Login';
 
 export const PagesRouter = () => {
   return (
     <Routes>
       <Route index element={<MainPage />} />
-      <Route path={PATH.CALENDAR.path} element={<>CALENDAR</>} />
-      <Route path={PATH.CLIENTS.path} element={<>CLIENTS</>} />
-      <Route path={PATH.RECORDS.path} element={<>RECORDS</>} />
+      <Route path={EPaths.Login} element={<Login />} />
+      <Route path={EPaths.Calendar} element={<>CALENDAR</>} />
+      <Route path={EPaths.Clients} element={<>CLIENTS</>} />
+      <Route path={EPaths.Records} element={<>RECORDS</>} />
     </Routes>
   );
 };

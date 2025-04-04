@@ -1,8 +1,1 @@
-import { IPaths } from './types';
-
-export const PATH: IPaths = {
-  MAIN: { path: '', label: 'Главная' },
-  CALENDAR: { path: 'calendar', label: 'Календарь' },
-  CLIENTS: { path: 'clients', label: 'Клиенты' },
-  RECORDS: { path: 'records', label: 'Записи' },
-};
+export const ENDPOINT_URL = '/api';

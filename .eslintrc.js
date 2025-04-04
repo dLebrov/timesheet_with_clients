@@ -32,6 +32,7 @@ module.exports = {
       },
     ],
     'import/extensions': 'off',
+    '@typescript-eslint/no-var-requires': 'off',
     'no-console': ['warn', { allow: ['error', 'warn'] }],
     'react/jsx-filename-extension': 0,
     '@typescript-eslint/explicit-module-boundary-types': 0,

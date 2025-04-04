@@ -27,6 +27,12 @@ export default defineConfig({
     port: 3000,
     open: true,
     strictPort: true,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+      },
+    },
   },
   build: {
     target: 'ES2022',

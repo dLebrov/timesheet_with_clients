@@ -1,1 +1,0 @@
-export { ThemeType } from './types';

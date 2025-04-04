@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { ThemeType } from '../lib';
+import { ThemeType } from '../lib/types';
 
 export interface TInitialStateTheme {
   theme: ThemeType | null;

@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
 
 import { ThemeType } from '../lib/types';
-import { themeActions } from '../model';
+import { themeActions } from '../model/themeSlice';
 
 export const useCustomTheme = () => {
   const { theme } = useAppSelector((state) => state.theme);
