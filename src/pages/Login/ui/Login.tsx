@@ -1,10 +1,12 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Flex, Form, Input } from 'antd';
+import { Button, Checkbox, Flex, Form, Input, Typography } from 'antd';
 import Cookies from 'js-cookie';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { useLazyAuthUserQuery } from '@/entities/user';
+import { EPaths } from '@/shared/lib';
 
 import { TLoginForm } from '../lib/types';
 
@@ -14,6 +16,7 @@ const StyledLoginContainer = styled('div')`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 `;
 const StyledLoginWrapper = styled('div')`
   min-width: 360px;
@@ -22,10 +25,12 @@ const StyledLoginWrapper = styled('div')`
 export const Login = () => {
   const navigate = useNavigate();
   const [fetchAuth, { isLoading }] = useLazyAuthUserQuery();
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleRegister = () => {
-    navigate('/register');
+    navigate(`/${EPaths.Registration}`);
   };
+
   const handleSubmitForm = async (values: TLoginForm) => {
     try {
       const { login, password } = values;
@@ -34,18 +39,28 @@ export const Login = () => {
 
       if (!data) throw new Error('Не удалось получить пользователя');
 
+      setErrorMessage(null);
+
       Cookies.set('token', data.access_token, {
         expires: 7,
-        secure: process.env.NODE_ENV === 'production',
         sameSite: 'strict',
       });
+      localStorage.setItem('user', JSON.stringify(data.user));
+
+      navigate('/');
     } catch (error) {
       console.error({ error });
+      setErrorMessage('Неверный логин или пароль');
     }
   };
 
   return (
     <StyledLoginContainer>
+      {errorMessage && (
+        <Typography.Text type="danger" style={{ marginBottom: 12 }}>
+          {errorMessage}
+        </Typography.Text>
+      )}
       <StyledLoginWrapper>
         <Form
           name="loginForm"

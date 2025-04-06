@@ -7,6 +7,7 @@ import { CustomContent } from '@/widgets/CustomContent';
 import { CustomFooter } from '@/widgets/CustomFooter';
 import { CustomHeader } from '@/widgets/CustomHeader';
 
+import { AuthGuard } from '../AuthGuard/ui/AuthGuard';
 import { PagesRouter } from './PagesRouter';
 
 export const App = () => {
@@ -14,23 +15,21 @@ export const App = () => {
 
   return (
     <HashRouter>
-      <ConfigProvider
-        theme={{
-          // 1. Use dark algorithm
-          algorithm: localTheme === ThemeType.DARK ? theme.darkAlgorithm : theme.defaultAlgorithm,
-
-          // 2. Combine dark algorithm and compact algorithm
-          // algorithm: [theme.darkAlgorithm, theme.compactAlgorithm],
-        }}
-      >
-        <Layout>
-          <CustomHeader />
-          <CustomContent>
-            <PagesRouter />
-          </CustomContent>
-          <CustomFooter />
-        </Layout>
-      </ConfigProvider>
+      <AuthGuard>
+        <ConfigProvider
+          theme={{
+            algorithm: localTheme === ThemeType.DARK ? theme.darkAlgorithm : theme.defaultAlgorithm,
+          }}
+        >
+          <Layout>
+            <CustomHeader />
+            <CustomContent>
+              <PagesRouter />
+            </CustomContent>
+            <CustomFooter />
+          </Layout>
+        </ConfigProvider>
+      </AuthGuard>
     </HashRouter>
   );
 };

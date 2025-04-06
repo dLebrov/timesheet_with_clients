@@ -15,7 +15,7 @@ export const userSlice = createSlice({
   initialState,
   reducerPath: 'user',
   reducers: {
-    setUser: (state, action: PayloadAction<TAuthResponse['user']>) => {
+    setUser: (state, action: PayloadAction<TAuthResponse['user'] | null>) => {
       state.user = action.payload;
     },
     clearUser: (state) => {

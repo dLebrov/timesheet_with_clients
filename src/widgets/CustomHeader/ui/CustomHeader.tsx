@@ -1,15 +1,24 @@
-import { UserOutlined } from '@ant-design/icons';
+import {
+  LoginOutlined,
+  LogoutOutlined,
+  MoonOutlined,
+  SunOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
 import { Avatar, Button, Menu, Typography } from 'antd';
-import { memo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import { useMemo } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { useAppSelector } from '@/app/store/hooks';
+import { useAppDispatch } from '@/app/store/hooks';
 import { useCustomTheme } from '@/entities/theme/hooks/useCustomTheme';
 import { ThemeType } from '@/entities/theme/lib/types';
+import { setUser, useUser } from '@/entities/user';
+import { EPaths } from '@/shared/lib';
 
 import { menuItems } from '../lib/constants';
-import { EThemesName, TCustomMenuItem } from '../lib/types';
+import { TCustomMenuItem } from '../lib/types';
 
 const StyledHeader = styled('div')<{ $currentTheme: ThemeType | null }>`
   display: flex;
@@ -48,33 +57,51 @@ const StyledUserInfo = styled('div')`
   align-items: flex-start;
 `;
 
-export const CustomHeader = memo(function CustomHeader() {
+export const CustomHeader = () => {
   const navigate = useNavigate();
   const { theme, changeTheme } = useCustomTheme();
-  const { user } = useAppSelector((state) => state.user);
+  const { user } = useUser();
+  const location = useLocation();
+  const dispatch = useAppDispatch();
+
+  const menuItemTyped = menuItems as TCustomMenuItem[];
 
   const handleClickMenu = ({ key }: { key: string }) => {
-    const selectedItem = menuItems.find((item) => item?.key === key) as TCustomMenuItem;
+    const selectedItem = menuItemTyped.find((item) => item?.key === key);
 
-    if (selectedItem) navigate(`/${selectedItem.path}`);
+    if (selectedItem) navigate(selectedItem.path);
   };
 
   const handleClickTheme = () => {
     changeTheme(theme === ThemeType.DARK ? ThemeType.LIGHT : ThemeType.DARK);
   };
 
-  const themeName = theme === ThemeType.DARK ? EThemesName.Light : EThemesName.Dark;
+  const handleClickLogout = () => {
+    localStorage.removeItem('user');
+    Cookies.remove('token');
+    dispatch(setUser(null));
+  };
+
+  const themeIcon = theme === ThemeType.DARK ? <SunOutlined /> : <MoonOutlined />;
+
+  const selectedKeys = useMemo(() => {
+    const currentKey =
+      menuItemTyped.find((item) => item?.path === location.pathname)?.key || menuItemTyped[0]?.key;
+
+    return currentKey;
+  }, [location.pathname, menuItemTyped]);
 
   return (
     <StyledHeader $currentTheme={theme}>
       <StyledMenu
         mode="horizontal"
-        defaultSelectedKeys={['1']}
+        selectedKeys={[selectedKeys]}
         items={menuItems}
         onClick={handleClickMenu}
+        disabled={!user}
       />
       <StyledRightContainer>
-        <Button onClick={handleClickTheme}>{themeName}</Button>
+        <Button onClick={handleClickTheme}>{themeIcon}</Button>
 
         {user && (
           <StyledUserContainer>
@@ -83,9 +110,11 @@ export const CustomHeader = memo(function CustomHeader() {
               <Typography.Text>{`${user.surname} ${user.name}`}</Typography.Text>
               <Typography.Text>{user.email}</Typography.Text>
             </StyledUserInfo>
+            <Button onClick={handleClickLogout} icon={<LogoutOutlined />} />
           </StyledUserContainer>
         )}
+        {!user && <Button onClick={() => navigate(`/${EPaths.Login}`)} icon={<LoginOutlined />} />}
       </StyledRightContainer>
     </StyledHeader>
   );
-});
+};

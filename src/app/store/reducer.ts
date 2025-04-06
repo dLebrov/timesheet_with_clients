@@ -1,7 +1,7 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
 import themeReducer, { TInitialStateTheme } from '@/entities/theme/model/themeSlice';
-import { authApi, userSlice } from '@/entities/user';
+import { authApi, userApi, userSlice } from '@/entities/user';
 import authReducer, { ITestReducer } from '@/features/test1/model/reducer';
 
 export interface IState {
@@ -14,4 +14,5 @@ export const mainReducer = combineReducers({
   theme: themeReducer.reducer,
   [authApi.reducerPath]: authApi.reducer,
   [userSlice.reducerPath]: userSlice.reducer,
+  [userApi.reducerPath]: userApi.reducer,
 });

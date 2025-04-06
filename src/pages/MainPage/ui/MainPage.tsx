@@ -16,22 +16,31 @@ const StyledText = styled('div')`
   font-size: 24px;
 `;
 
+const StyledBtnContainer = styled('div')`
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 0 24px;
+`;
+
 export const MainPage = () => {
   const navigate = useNavigate();
-  const handleLogin = () => {
-    navigate('/login');
-  };
-  const handleRegister = () => {
-    navigate('/register');
-  };
 
   return (
     <StyledContainer>
-      <StyledText>Приветствую вас в системе учёта клиентов</StyledText>
-      <StyledText>
-        Вам необходимо <Button onClick={handleLogin}>Войти</Button> или{' '}
-        <Button onClick={handleRegister}>Зарегистрироваться</Button>
-      </StyledText>
+      <StyledText>Что нам нужно сегодня?</StyledText>
+      <StyledBtnContainer>
+        <Button type="primary" onClick={() => navigate('/calendar')}>
+          Календарь
+        </Button>
+        <Button type="primary" onClick={() => navigate('/clients')}>
+          Клиенты
+        </Button>
+        <Button type="primary" onClick={() => navigate('/records')}>
+          Записи
+        </Button>
+      </StyledBtnContainer>
     </StyledContainer>
   );
 };

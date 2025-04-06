@@ -1,14 +1,18 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 
-import { authApi } from '@/entities/user';
+import { authApi, userApi } from '@/entities/user';
 
 import { mainReducer } from './reducer';
 
 const store = configureStore({
   reducer: mainReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ serializableCheck: false }).concat(logger, authApi.middleware),
+    getDefaultMiddleware({ serializableCheck: false }).concat(
+      logger,
+      authApi.middleware,
+      userApi.middleware,
+    ),
 });
 
 export type IRootState = ReturnType<typeof store.getState>;

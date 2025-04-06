@@ -1,3 +1,3 @@
-import { authApi } from '../api/auth';
+import { authApi } from '../api/authApi';
 
 export const { useAuthUserQuery, useLazyAuthUserQuery } = authApi;
