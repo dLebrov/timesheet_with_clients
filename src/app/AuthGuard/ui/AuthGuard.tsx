@@ -32,6 +32,7 @@ export const AuthGuard = ({ children }: PropsWithChildren) => {
 
     if (shouldRedirectToLogin) {
       localStorage.removeItem('user');
+      dispatch(setUser(null));
       navigate(`/${EPaths.Login}`);
     }
   }, [dispatch, isAuthPath, isTokenAlive, navigate, user]);

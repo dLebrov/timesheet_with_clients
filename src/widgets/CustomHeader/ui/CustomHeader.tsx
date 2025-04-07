@@ -14,7 +14,7 @@ import styled from 'styled-components';
 import { useAppDispatch } from '@/app/store/hooks';
 import { useCustomTheme } from '@/entities/theme/hooks/useCustomTheme';
 import { ThemeType } from '@/entities/theme/lib/types';
-import { setUser, useUser } from '@/entities/user';
+import { setUser, userRoleName, useUser } from '@/entities/user';
 import { EPaths } from '@/shared/lib';
 
 import { menuItems } from '../lib/constants';
@@ -105,10 +105,10 @@ export const CustomHeader = () => {
 
         {user && (
           <StyledUserContainer>
-            <Avatar size="large" icon={<UserOutlined />} />
+            <Avatar style={{ backgroundColor: '#87d068' }} size="large" icon={<UserOutlined />} />
             <StyledUserInfo>
               <Typography.Text>{`${user.surname} ${user.name}`}</Typography.Text>
-              <Typography.Text>{user.email}</Typography.Text>
+              <Typography.Text>{userRoleName[user.role]}</Typography.Text>
             </StyledUserInfo>
             <Button onClick={handleClickLogout} icon={<LogoutOutlined />} />
           </StyledUserContainer>

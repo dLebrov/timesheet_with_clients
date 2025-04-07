@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { useLazyCreateUserQuery } from '@/entities/user/hooks/userHooks';
+import { EPaths } from '@/shared/lib';
 
 import { formItemLayout, tailFormItemLayout } from '../lib/constants';
 import { TRegistrationForm } from '../lib/types';
@@ -72,6 +73,10 @@ export const Registration = () => {
     } catch (error) {
       console.error({ error });
     }
+  };
+
+  const handleLogin = () => {
+    navigate(`/${EPaths.Login}`);
   };
 
   return (
@@ -216,6 +221,7 @@ export const Registration = () => {
             <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
               Зарегистрироваться
             </Button>
+            или <a onClick={handleLogin}>Войти сейчас</a>
           </Form.Item>
         </Form>
       </StyledRegistrationWrapper>

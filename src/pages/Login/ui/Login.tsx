@@ -42,7 +42,7 @@ export const Login = () => {
       setErrorMessage(null);
 
       Cookies.set('token', data.access_token, {
-        expires: 7,
+        expires: 1,
         sameSite: 'strict',
       });
       localStorage.setItem('user', JSON.stringify(data.user));
