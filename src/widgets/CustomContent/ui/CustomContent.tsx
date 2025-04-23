@@ -3,7 +3,8 @@ import { PropsWithChildren } from 'react';
 import styled from 'styled-components';
 
 const StyledContent = styled(Content)`
-  height: calc(100vh - 150px);
+  height: calc(100vh - 64px);
+  padding: 24px;
 `;
 
 type CustomContentProps = PropsWithChildren;

@@ -1,6 +1,6 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
-import logger from 'redux-logger';
 
+import { clientsApi } from '@/entities/clients';
 import { authApi, userApi } from '@/entities/user';
 
 import { mainReducer } from './reducer';
@@ -9,9 +9,9 @@ const store = configureStore({
   reducer: mainReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }).concat(
-      logger,
       authApi.middleware,
       userApi.middleware,
+      clientsApi.middleware,
     ),
 });
 

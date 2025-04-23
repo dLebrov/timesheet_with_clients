@@ -4,7 +4,6 @@ import { HashRouter } from 'react-router-dom';
 import { useCustomTheme } from '@/entities/theme';
 import { ThemeType } from '@/entities/theme';
 import { CustomContent } from '@/widgets/CustomContent';
-import { CustomFooter } from '@/widgets/CustomFooter';
 import { CustomHeader } from '@/widgets/CustomHeader';
 
 import { AuthGuard } from '../AuthGuard/ui/AuthGuard';
@@ -26,7 +25,6 @@ export const App = () => {
             <CustomContent>
               <PagesRouter />
             </CustomContent>
-            <CustomFooter />
           </Layout>
         </ConfigProvider>
       </AuthGuard>

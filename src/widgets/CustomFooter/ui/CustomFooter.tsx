@@ -2,10 +2,11 @@ import { Footer } from 'antd/es/layout/layout';
 import styled from 'styled-components';
 
 const StyledFooter = styled(Footer)`
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   text-align: canter;
 `;
 
