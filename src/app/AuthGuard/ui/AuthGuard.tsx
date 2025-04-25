@@ -37,5 +37,5 @@ export const AuthGuard = ({ children }: PropsWithChildren) => {
     }
   }, [dispatch, isAuthPath, isTokenAlive, navigate, user]);
 
-  return <>{children}</>;
+  return children;
 };

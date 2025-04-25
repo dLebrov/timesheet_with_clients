@@ -1,13 +1,17 @@
 import { Empty, Skeleton, Table } from 'antd';
+import { memo } from 'react';
 
-import { useGetClientsQuery } from '@/entities/clients';
+import { TClientResponse } from '@/entities/clients';
 
 import { clientsTableColumns } from '../lib/clientsTableColumns';
 import { TClient } from '../lib/types';
 
-export const ClientsTable = () => {
-  const { data, isLoading } = useGetClientsQuery();
+type TClientsTableProps = {
+  data: TClientResponse[] | undefined;
+  isLoading: boolean;
+};
 
+export const ClientsTable = memo(function ClientsTable({ data, isLoading }: TClientsTableProps) {
   return (
     <Table<TClient>
       dataSource={data ?? []}
@@ -18,4 +22,4 @@ export const ClientsTable = () => {
       }}
     />
   );
-};
+});

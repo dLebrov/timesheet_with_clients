@@ -1,5 +1,6 @@
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { Button, Drawer, Menu } from 'antd';
+import { DrawerStyles } from 'antd/es/drawer/DrawerPanel';
 import { useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -20,6 +21,7 @@ const StyledHeader = styled('div')<{ $currentTheme: ThemeType | null }>`
   justify-content: space-between;
   align-items: center;
   padding: 0 24px;
+  box-sizing: border-box;
   background-color: ${(props) => (props.$currentTheme === ThemeType.DARK ? '#141414' : '#ffffff')};
 `;
 
@@ -37,6 +39,7 @@ const StyledRightContainer = styled('div')`
   justify-content: flex-end;
   gap: 20px;
   width: 100%;
+  box-sizing: border-box;
 `;
 
 export const CustomHeader = () => {
@@ -54,6 +57,7 @@ export const CustomHeader = () => {
     const selectedItem = menuItemTyped.find((item) => item?.key === key);
 
     if (selectedItem) navigate(selectedItem.path);
+    if (isMobile) setIsOpenMenu(!isOpenMenu);
   };
 
   const onChangeMenu = () => {
@@ -66,6 +70,15 @@ export const CustomHeader = () => {
 
     return currentKey;
   }, [location.pathname, menuItemTyped]);
+
+  const drawerStyles: DrawerStyles = {
+    header: {
+      background: theme === ThemeType.DARK ? '#141414' : '#ffffff',
+    },
+    body: {
+      background: theme === ThemeType.DARK ? '#141414' : '#ffffff',
+    },
+  };
 
   return (
     <>
@@ -95,6 +108,7 @@ export const CustomHeader = () => {
         onClose={onChangeMenu}
         open={isOpenMenu}
         destroyOnClose
+        styles={drawerStyles}
       >
         <StyledMenu
           $isMobile={isMobile}
