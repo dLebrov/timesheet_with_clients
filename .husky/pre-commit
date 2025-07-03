@@ -1,4 +1,1 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
-yarn pre-commit
+yarn check-typescript && yarn eslint-fix --max-warnings=10 && yarn stylelint:fix && yarn test

@@ -1,9 +1,9 @@
 import { Route, Routes } from 'react-router-dom';
 
-import { Clients } from '@/pages/Clients/ui/Clients';
-import { Login } from '@/pages/Login';
-import { MainPage } from '@/pages/MainPage';
-import { Registration } from '@/pages/Registration';
+import { Clients } from '@/pages/clients/ui';
+import { Login } from '@/pages/login';
+import { MainPage } from '@/pages/main-page';
+import { Registration } from '@/pages/registration';
 import { EPaths } from '@/shared/lib';
 
 export const PagesRouter = () => {

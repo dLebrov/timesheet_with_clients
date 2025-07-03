@@ -1,0 +1,29 @@
+.UserMenu {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  &__avatar {
+    background-color: #87d068;
+  }
+
+  &__user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  &__dropdown-icon {
+    color: black;
+    transform: rotate(0);
+    transition: 0.3s;
+  }
+
+  &__dropdown-icon--open {
+    transform: rotate(-180deg);
+  }
+
+  &__dropdown-icon--white {
+    color: white;
+  }
+}

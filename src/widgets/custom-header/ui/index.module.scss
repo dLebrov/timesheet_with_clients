@@ -1,0 +1,43 @@
+.CustomHeader {
+  &__header-content {
+    display: flex;
+    width: 100%;
+    height: 64px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+    box-sizing: border-box;
+    background-color: #fff;
+  }
+
+  &__dark-theme {
+    background-color: #141414;
+  }
+
+  &__menu {
+    width: 100%;
+
+    & > li {
+      padding-top: 15px;
+    }
+  }
+
+  &__menu-mobile {
+    & > li {
+      padding-top: 0;
+    }
+  }
+
+  &__menu-vertical {
+    height: 100%;
+  }
+
+  &__right-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}

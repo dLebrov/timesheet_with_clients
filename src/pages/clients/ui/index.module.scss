@@ -1,0 +1,23 @@
+.Clients {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+  }
+
+  &__content {
+    flex: 1 1 auto;
+    overflow: hidden;
+  }
+
+  &__title {
+    margin-bottom: 0 !important;
+  }
+}

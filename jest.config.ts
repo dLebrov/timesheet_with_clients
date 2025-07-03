@@ -17,4 +17,5 @@ export default {
     '^@/(.*)$': '<rootDir>/src/$1',
     '^antd/es/(.*)$': 'antd/lib/$1',
   },
+  setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
 };

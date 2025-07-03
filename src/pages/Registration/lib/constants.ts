@@ -1,4 +1,4 @@
-export const formItemLayout = {
+export const FORM_ITEM_LAYOUT = {
   labelCol: {
     xs: { span: 24 },
     sm: { span: 8 },
@@ -9,7 +9,7 @@ export const formItemLayout = {
   },
 };
 
-export const tailFormItemLayout = {
+export const FORM_ITEM_TAIL_LAYOUT = {
   wrapperCol: {
     xs: {
       span: 24,
