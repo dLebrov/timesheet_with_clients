@@ -1,7 +1,10 @@
+@use '@/shared/styles/media.module.scss' as *;
+
 .Clients {
   display: flex;
   flex-direction: column;
   height: 100%;
+  overflow: hidden;
 
   &__header {
     display: flex;

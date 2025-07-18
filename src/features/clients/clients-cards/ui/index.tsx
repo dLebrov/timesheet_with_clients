@@ -15,7 +15,6 @@ type TClientsCardsProps = {
   data: TClientResponse[] | undefined;
   isLoading: boolean;
 };
-// разобраться с высотой скролла на мобилке
 export const ClientsCards = memo(function ClientsCards({ data, isLoading }: TClientsCardsProps) {
   return (
     <div

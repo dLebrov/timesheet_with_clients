@@ -1,9 +1,11 @@
 import { Button, Typography } from 'antd';
 import classNames from 'classnames/bind';
+import { useState } from 'react';
 
 import { useGetClientsQuery } from '@/entities/clients';
 import { ClientsCards } from '@/features/clients/clients-cards';
 import { ClientsTable } from '@/features/clients/clients-table';
+import { CreateClientModal } from '@/features/clients/create-client-modal';
 import { useDeviceDetect } from '@/shared/hooks/useDeviceDetect';
 
 import styles from './index.module.scss';
@@ -12,8 +14,17 @@ const BLOCK_NAME = 'Clients';
 const cn = classNames.bind(styles);
 
 export const Clients = () => {
+  const [isModalVisible, setModalVisible] = useState(false);
   const { isMobile } = useDeviceDetect();
   const { data, isLoading } = useGetClientsQuery();
+
+  const handleOpenCreateClient = () => {
+    setModalVisible(true);
+  };
+
+  const handleCloseCreateClient = () => {
+    setModalVisible(false);
+  };
 
   return (
     <div className={cn(BLOCK_NAME)}>
@@ -21,7 +32,9 @@ export const Clients = () => {
         <Typography.Title className={cn(`${BLOCK_NAME}__title`)} level={2}>
           Клиенты
         </Typography.Title>
-        <Button type="primary">Создать клиента</Button>
+        <Button type="primary" onClick={handleOpenCreateClient}>
+          Создать клиента
+        </Button>
       </div>
       <div className={cn(`${BLOCK_NAME}__content`)}>
         {isMobile ? (
@@ -30,6 +43,10 @@ export const Clients = () => {
           <ClientsTable data={data} isLoading={isLoading} />
         )}
       </div>
+      <CreateClientModal
+        isModalVisible={isModalVisible}
+        onCloseCreateClient={handleCloseCreateClient}
+      />
     </div>
   );
 };

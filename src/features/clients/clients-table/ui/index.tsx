@@ -12,13 +12,15 @@ type TClientsTableProps = {
 };
 
 export const ClientsTable = memo(function ClientsTable({ data, isLoading }: TClientsTableProps) {
+  console.log({ data });
+
   return (
     <Table<TClient>
       dataSource={data ?? []}
       columns={clientsTableColumns}
       rowKey="id"
       locale={{
-        emptyText: !isLoading ? <Skeleton active /> : <Empty description="Нет данных" />,
+        emptyText: isLoading ? <Skeleton active /> : <Empty description="Нет данных" />,
       }}
     />
   );

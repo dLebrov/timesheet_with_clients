@@ -12,3 +12,11 @@ export type TClientResponse = {
   // records: Omit<recordsDto, 'clients' | 'services'>[];
   createdAt: Date;
 };
+
+export type TCreateClientParams = {
+  surname: string | undefined;
+  name: string;
+  birthDate: string | undefined;
+  group: string | undefined;
+  description: string | undefined;
+};

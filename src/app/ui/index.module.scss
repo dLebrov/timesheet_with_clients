@@ -10,9 +10,14 @@
   &__header {
     flex: 0 0 auto;
     z-index: 10;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
   }
 
   &__content {
+    margin-top: 64px;
     flex: 1 1 auto;
     min-height: 0;
     padding: 24px;
