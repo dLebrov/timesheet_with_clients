@@ -34,7 +34,7 @@ export const Login = () => {
       setErrorMessage(null);
 
       Cookies.set('token', data.access_token, {
-        expires: 1,
+        expires: 7,
         sameSite: 'strict',
       });
       localStorage.setItem('user', JSON.stringify(data.user));

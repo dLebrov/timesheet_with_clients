@@ -12,8 +12,6 @@ type TClientsTableProps = {
 };
 
 export const ClientsTable = memo(function ClientsTable({ data, isLoading }: TClientsTableProps) {
-  console.log({ data });
-
   return (
     <Table<TClient>
       dataSource={data ?? []}
