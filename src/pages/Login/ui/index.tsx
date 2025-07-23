@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useLazyAuthUserQuery } from '@/entities/user';
+import { authApi } from '@/entities/user';
 import { EPaths } from '@/shared/lib';
 
 import { TLoginForm } from '../lib/types';
@@ -16,7 +16,7 @@ const cn = classNames.bind(styles);
 
 export const Login = () => {
   const navigate = useNavigate();
-  const [fetchAuth, { isLoading }] = useLazyAuthUserQuery();
+  const [fetchAuth, { isLoading }] = authApi.useLazyAuthUserQuery();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleRegister = () => {

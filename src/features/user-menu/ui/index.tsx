@@ -1,4 +1,5 @@
 import {
+  BookOutlined,
   DownOutlined,
   LoginOutlined,
   LogoutOutlined,
@@ -16,6 +17,7 @@ import { useAppDispatch } from '@/app/store/hooks';
 import { ThemeType, useCustomTheme } from '@/entities/theme';
 import { setUser, userRoleName, useUser } from '@/entities/user';
 import { EPaths } from '@/shared/lib';
+import { Subjects } from '@/widgets/subjects';
 
 import styles from './index.module.scss';
 
@@ -24,6 +26,7 @@ const cn = classNames.bind(styles);
 
 export const UserMenu = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [isOpenSidebar, setIsOpenSidebar] = useState(false);
 
   const { user } = useUser();
   const dispatch = useAppDispatch();
@@ -44,6 +47,14 @@ export const UserMenu = () => {
     setDropdownOpen(open);
   }, []);
 
+  const handleClickSubjects = useCallback(() => {
+    setIsOpenSidebar(true);
+  }, []);
+
+  const handleCloseSubjects = useCallback(() => {
+    setIsOpenSidebar(false);
+  }, []);
+
   const items: MenuProps['items'] = useMemo(() => {
     const themeIcon =
       theme === ThemeType.DARK ? (
@@ -56,23 +67,32 @@ export const UserMenu = () => {
     return [
       {
         label: (
-          <Typography.Text onClick={handleClickTheme}>
-            {themeName}
-            {themeIcon}
+          <Typography.Text onClick={handleClickSubjects}>
+            Предметы <BookOutlined style={{ marginLeft: 8 }} />
           </Typography.Text>
         ),
         key: '0',
       },
       {
         label: (
-          <Typography.Text onClick={handleClickLogout}>
-            Выйти <LogoutOutlined style={{ marginLeft: 8 }} />
+          <Typography.Text onClick={handleClickTheme}>
+            {themeName}
+            {themeIcon}
           </Typography.Text>
         ),
         key: '1',
       },
+
+      {
+        label: (
+          <Typography.Text onClick={handleClickLogout}>
+            Выйти <LogoutOutlined style={{ marginLeft: 8 }} />
+          </Typography.Text>
+        ),
+        key: '2',
+      },
     ];
-  }, [handleClickLogout, handleClickTheme, theme]);
+  }, [handleClickLogout, handleClickSubjects, handleClickTheme, theme]);
 
   if (!user) {
     return (
@@ -87,22 +107,27 @@ export const UserMenu = () => {
   }
 
   return (
-    <Dropdown menu={{ items }} open={dropdownOpen} onOpenChange={handleOpenChange}>
-      <div className={cn(BLOCK_NAME)}>
-        <Avatar className={cn(`${BLOCK_NAME}__avatar`)} size="large" icon={<UserOutlined />} />
-        <div className={cn(`${BLOCK_NAME}__user-info`)}>
-          <Typography.Text
-            style={{ cursor: 'pointer' }}
-          >{`${user.surname} ${user.name}`}</Typography.Text>
-          <Typography.Text style={{ cursor: 'pointer' }}>{userRoleName[user.role]}</Typography.Text>
+    <>
+      <Subjects isOpenSidebar={isOpenSidebar} onCloseSidebar={handleCloseSubjects} />
+      <Dropdown menu={{ items }} open={dropdownOpen} onOpenChange={handleOpenChange}>
+        <div className={cn(BLOCK_NAME)}>
+          <Avatar className={cn(`${BLOCK_NAME}__avatar`)} size="large" icon={<UserOutlined />} />
+          <div className={cn(`${BLOCK_NAME}__user-info`)}>
+            <Typography.Text
+              style={{ cursor: 'pointer' }}
+            >{`${user.surname} ${user.name}`}</Typography.Text>
+            <Typography.Text style={{ cursor: 'pointer' }}>
+              {userRoleName[user.role]}
+            </Typography.Text>
+          </div>
+          <DownOutlined
+            className={cn(`${BLOCK_NAME}__dropdown-icon`, {
+              [`${BLOCK_NAME}__dropdown-icon--open`]: dropdownOpen,
+              [`${BLOCK_NAME}__dropdown-icon--white`]: theme === ThemeType.DARK,
+            })}
+          />
         </div>
-        <DownOutlined
-          className={cn(`${BLOCK_NAME}__dropdown-icon`, {
-            [`${BLOCK_NAME}__dropdown-icon--open`]: dropdownOpen,
-            [`${BLOCK_NAME}__dropdown-icon--white`]: theme === ThemeType.DARK,
-          })}
-        />
-      </div>
-    </Dropdown>
+      </Dropdown>
+    </>
   );
 };

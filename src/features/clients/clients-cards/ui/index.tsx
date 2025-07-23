@@ -1,3 +1,4 @@
+import { EditOutlined } from '@ant-design/icons';
 import { Button, Card, Empty, Spin } from 'antd';
 import classNames from 'classnames/bind';
 import moment from 'moment';
@@ -33,7 +34,7 @@ export const ClientsCards = memo(function ClientsCards({ data, isLoading }: TCli
               <Card
                 key={id}
                 title={getClientName(client)}
-                extra={<Button type="primary">Редактировать</Button>}
+                extra={<Button type="primary" icon={<EditOutlined key="edit" />} />}
                 style={{ width: '100%' }}
               >
                 <div className={cn(`${BLOCK_NAME}__card-description`)}>

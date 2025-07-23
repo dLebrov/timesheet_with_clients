@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 
-import { useLazyCreateUserQuery } from '@/entities/user/hooks/userHooks';
+import { userApi } from '@/entities/user';
 import { EPaths } from '@/shared/lib';
 
 import { FORM_ITEM_LAYOUT, FORM_ITEM_TAIL_LAYOUT } from '../lib/constants';
@@ -19,7 +19,7 @@ const cn = classNames.bind(styles);
 export const Registration = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
-  const [createUser] = useLazyCreateUserQuery();
+  const [createUser] = userApi.useLazyCreateUserQuery();
 
   const onConfirm = async (values: TRegistrationForm) => {
     try {

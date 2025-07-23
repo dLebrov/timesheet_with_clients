@@ -1,7 +1,54 @@
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden; /* изменить на hidden */
+  position: fixed;
+  -webkit-overflow-scrolling: touch;
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  overscroll-behavior: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  touch-action: manipulation;
+  position: relative;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: auto;
+}
+
+/* Специально для Safari iOS */
+@supports (-webkit-touch-callout: none) {
+  body {
+    position: fixed;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    touch-action: manipulation;
+    overscroll-behavior: none;
+  }
+
+  #root {
+    overflow: hidden;
+    touch-action: manipulation;
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: auto;
+  }
+}
+
 * {
   padding: 0;
   margin: 0;
   border: none;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: auto;
 }
 
 *,

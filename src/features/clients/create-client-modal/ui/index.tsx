@@ -1,7 +1,7 @@
 import { Button, DatePicker, Form, Input, message, Modal } from 'antd';
 import classNames from 'classnames/bind';
 
-import { useCreateClientMutation } from '@/entities/clients';
+import { clientsApi } from '@/entities/clients';
 
 import { TCreateClientForm } from '../lib/types';
 import styles from './index.module.scss';
@@ -16,7 +16,7 @@ type TCreateClientModal = {
 
 export const CreateClientModal = ({ isModalVisible, onCloseCreateClient }: TCreateClientModal) => {
   const [form] = Form.useForm<TCreateClientForm>();
-  const [createClient, { isLoading }] = useCreateClientMutation();
+  const [createClient, { isLoading }] = clientsApi.useCreateClientMutation();
 
   const handleClose = () => {
     form.resetFields();

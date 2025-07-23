@@ -6,6 +6,10 @@
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+  position: relative;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: auto;
+  touch-action: manipulation;
 
   &__header {
     flex: 0 0 auto;
@@ -14,6 +18,9 @@
     top: 0;
     left: 0;
     width: 100vw;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior: none;
   }
 
   &__content {
@@ -23,9 +30,19 @@
     padding: 24px;
     box-sizing: border-box;
     width: 100%;
+    overflow: hidden;
+    position: relative;
+    overscroll-behavior: none;
+    touch-action: manipulation;
+    -webkit-overflow-scrolling: auto;
+    padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px));
 
     @media #{$mobile} {
       padding: 16px;
+      -webkit-touch-callout: none;
+      user-select: none;
+      touch-action: manipulation;
+      padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px));
     }
   }
 }
