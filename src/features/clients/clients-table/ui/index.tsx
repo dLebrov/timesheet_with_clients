@@ -1,5 +1,5 @@
-import { Empty, Skeleton, Table } from 'antd';
-import { memo } from 'react';
+import { Empty, Skeleton, Table, TablePaginationConfig } from 'antd';
+import { memo, useCallback, useMemo, useState } from 'react';
 
 import { TClientResponse } from '@/entities/clients';
 
@@ -9,17 +9,49 @@ import { TClient } from '../lib/types';
 type TClientsTableProps = {
   data: TClientResponse[] | undefined;
   isLoading: boolean;
+  onEditClient: (id: number) => void;
 };
 
-export const ClientsTable = memo(function ClientsTable({ data, isLoading }: TClientsTableProps) {
+export const ClientsTable = memo(function ClientsTable({
+  data,
+  isLoading,
+  onEditClient,
+}: TClientsTableProps) {
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 10,
+  });
+
+  const handleTableChange = useCallback((paginationConfig: TablePaginationConfig) => {
+    setPagination({
+      current: paginationConfig.current!,
+      pageSize: paginationConfig.pageSize!,
+    });
+  }, []);
+  const columns = useMemo(() => clientsTableColumns({ onEditClient }), [onEditClient]);
+
   return (
-    <Table<TClient>
-      dataSource={data ?? []}
-      columns={clientsTableColumns}
-      rowKey="id"
-      locale={{
-        emptyText: isLoading ? <Skeleton active /> : <Empty description="Нет данных" />,
-      }}
-    />
+    <div style={{ height: '100%' }}>
+      <Table<TClient>
+        dataSource={data ?? []}
+        columns={columns}
+        rowKey="id"
+        scroll={{
+          y: 'calc(100vh - 285px)',
+          x: 'max-content',
+        }}
+        pagination={{
+          ...pagination,
+          showSizeChanger: true,
+          showQuickJumper: true,
+          showTotal: (total, range) => `${range[0]}-${range[1]} из ${total}`,
+          pageSizeOptions: ['5', '10', '20', '50'],
+        }}
+        onChange={handleTableChange}
+        locale={{
+          emptyText: isLoading ? <Skeleton active /> : <Empty description="Нет данных" />,
+        }}
+      />
+    </div>
   );
 });

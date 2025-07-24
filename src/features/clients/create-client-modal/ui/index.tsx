@@ -1,13 +1,9 @@
-import { Button, DatePicker, Form, Input, message, Modal } from 'antd';
-import classNames from 'classnames/bind';
+import { Form, message, Modal } from 'antd';
+import { useMemo } from 'react';
 
 import { clientsApi } from '@/entities/clients';
 
-import { TCreateClientForm } from '../lib/types';
-import styles from './index.module.scss';
-
-const BLOCK_NAME = 'CreateClientModal';
-const cn = classNames.bind(styles);
+import { ClientForm, TClientForm } from '../../client-form';
 
 type TCreateClientModal = {
   isModalVisible: boolean;
@@ -15,21 +11,54 @@ type TCreateClientModal = {
 };
 
 export const CreateClientModal = ({ isModalVisible, onCloseCreateClient }: TCreateClientModal) => {
-  const [form] = Form.useForm<TCreateClientForm>();
-  const [createClient, { isLoading }] = clientsApi.useCreateClientMutation();
+  const [form] = Form.useForm<TClientForm>();
+  const { data: subjects, isLoading: isLoadingSubjects } = clientsApi.useGetSubjectsQuery();
+  const [createClient, { isLoading: isLoadingCreateClient }] = clientsApi.useCreateClientMutation();
+  const [createClientSubject, { isLoading: isLoadingClientSubject }] =
+    clientsApi.useCreateClientSubjectMutation();
+
+  const isLoading = isLoadingCreateClient || isLoadingClientSubject;
+
+  const options = useMemo(() => {
+    return (
+      subjects?.map((subject) => ({
+        label: subject.name,
+        value: subject.id,
+      })) ?? []
+    );
+  }, [subjects]);
 
   const handleClose = () => {
     form.resetFields();
     onCloseCreateClient();
   };
 
-  const handleSubmitForm = async (formData: TCreateClientForm) => {
+  const createClientSubjects = async ({
+    clientId,
+    subjectsForm,
+  }: {
+    clientId: number;
+    subjectsForm: Array<number>;
+  }) => {
+    const requests = subjectsForm.map((subjectId) => createClientSubject({ clientId, subjectId }));
+    await Promise.all(requests);
+  };
+
+  const handleSubmitForm = async (formData: TClientForm) => {
     try {
       const birthDateISO = formData.birthDate ? formData.birthDate.toISOString() : undefined;
+      const { subjects: subjectForm, ...otherData } = formData;
 
-      const data = { ...formData, birthDate: birthDateISO };
+      const data = { ...otherData, birthDate: birthDateISO };
 
-      await createClient(data);
+      const result = await createClient(data);
+
+      if (!result.data) throw new Error('Не удалось создать клиента');
+
+      await createClientSubjects({
+        clientId: result.data?.id,
+        subjectsForm: subjectForm,
+      });
 
       handleClose();
       message.success('Клиент успешно создан');
@@ -48,45 +77,15 @@ export const CreateClientModal = ({ isModalVisible, onCloseCreateClient }: TCrea
         footer={null}
         centered
       >
-        <Form<TCreateClientForm>
+        <ClientForm
           form={form}
-          scrollToFirstError
-          layout="vertical"
-          onFinish={handleSubmitForm}
-        >
-          <Form.Item name="surname" label="Фамилия">
-            <Input placeholder="Введите фамилию" />
-          </Form.Item>
-          <Form.Item
-            name="name"
-            label="Имя"
-            rules={[{ required: true, message: 'Обязательное поле' }]}
-          >
-            <Input placeholder="Введите имя" />
-          </Form.Item>
-          <Form.Item name="birthDate" label="Дата рождения">
-            <DatePicker format="DD.MM.YYYY" />
-          </Form.Item>
-          <Form.Item name="group" label="Группа">
-            <Input placeholder="Введите группу" />
-          </Form.Item>
-          <Form.Item name="description" label="Описание">
-            <Input.TextArea autoSize={{ minRows: 3, maxRows: 5 }} placeholder="Введите описание" />
-          </Form.Item>
-
-          <div className={cn(`${BLOCK_NAME}__buttons`)}>
-            <Form.Item noStyle>
-              <Button type="default" onClick={handleClose}>
-                Отмена
-              </Button>
-            </Form.Item>
-            <Form.Item noStyle>
-              <Button type="primary" htmlType="submit" disabled={isLoading} loading={isLoading}>
-                Создать
-              </Button>
-            </Form.Item>
-          </div>
-        </Form>
+          onSubmitForm={handleSubmitForm}
+          isLoadingSubjects={isLoadingSubjects}
+          isLoading={isLoading}
+          subjectsOptions={options}
+          onClose={handleClose}
+          actionLabel="Создать"
+        />
       </Modal>
     </>
   );

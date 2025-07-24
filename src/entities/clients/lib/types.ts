@@ -1,3 +1,11 @@
+export type TClientSubjects = {
+  id: number;
+  clientId: number;
+  subjectId: number;
+  subjects: TSubjectResponse;
+  createdAt: Date;
+};
+
 export type TClientResponse = {
   id: number;
   userId: number;
@@ -8,7 +16,8 @@ export type TClientResponse = {
   // только для преподавателя
   group?: string | null;
   description: string | null;
-  // client_subjects: Omit<client_subjectsDto, 'clients' | 'subjects'>[];
+  // только для преподавателя
+  client_subjects: Array<TClientSubjects>;
   // records: Omit<recordsDto, 'clients' | 'services'>[];
   createdAt: Date;
 };
@@ -21,6 +30,17 @@ export type TCreateClientParams = {
   description: string | undefined;
 };
 
+export type TCreateClientResponse = {
+  id: number;
+  userId: number;
+  users: any;
+  surname: string;
+  name: string;
+  birthDate: string;
+  group: string;
+  description: string;
+};
+
 export type TSubjectResponse = {
   id: number;
   name: string;
@@ -29,4 +49,9 @@ export type TSubjectResponse = {
 
 export type TCreateSubjectParams = {
   name: string;
+};
+
+export type TCreateClientSubjectParams = {
+  clientId: number;
+  subjectId: number;
 };
