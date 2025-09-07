@@ -30,15 +30,11 @@ export type TCreateClientParams = {
   description: string | undefined;
 };
 
-export type TCreateClientResponse = {
-  id: number;
-  userId: number;
-  users: any;
-  surname: string;
-  name: string;
-  birthDate: string;
-  group: string;
-  description: string;
+export type TUpdateClientParams = {
+  query: {
+    id: number;
+  };
+  body: TCreateClientParams;
 };
 
 export type TSubjectResponse = {

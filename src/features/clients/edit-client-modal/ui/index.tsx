@@ -2,7 +2,7 @@ import { Form, message, Modal } from 'antd';
 import moment from 'moment';
 import { useEffect, useMemo } from 'react';
 
-import { clientsApi } from '@/entities/clients';
+import { clientsApi, useClientSubject } from '@/entities/clients';
 
 import { ClientForm, TClientForm } from '../../client-form';
 
@@ -18,6 +18,8 @@ export const EditClientModal = ({
   clientId,
 }: TEditClientModal) => {
   const [form] = Form.useForm<TClientForm>();
+
+  const { createClientSubjectsRequest, isLoading: isLoadingClientSubject } = useClientSubject();
   const { data: subjects, isLoading: isLoadingSubjects } = clientsApi.useGetSubjectsQuery();
   const { data: clientData, isLoading: isLoadingClientData } = clientsApi.useGetClientQuery(
     clientId,
@@ -25,10 +27,11 @@ export const EditClientModal = ({
       skip: !clientId,
     },
   );
-  const [createClientSubject, { isLoading: isLoadingClientSubject }] =
-    clientsApi.useCreateClientSubjectMutation();
+  const [updateClient, { isLoading: isLoadingUpdateClient }] = clientsApi.useUpdateClientMutation();
+  const [deleteManyClientSubject] = clientsApi.useDeleteManyClientSubjectMutation();
 
-  const isLoading = isLoadingClientData || isLoadingClientSubject;
+  const isLoading =
+    isLoadingUpdateClient || isLoadingClientSubject || isLoadingSubjects || isLoadingClientData;
 
   useEffect(() => {
     if (clientData && isModalVisible) {
@@ -59,32 +62,33 @@ export const EditClientModal = ({
     onCloseEditClient();
   };
 
-  // const createClientSubjects = async ({
-  //   clientId,
-  //   subjectsForm,
-  // }: {
-  //   clientId: number;
-  //   subjectsForm: Array<number>;
-  // }) => {
-  //   const requests = subjectsForm.map((subjectId) => createClientSubject({ clientId, subjectId }));
-  //   await Promise.all(requests);
-  // };
-
   const handleSubmitForm = async (formData: TClientForm) => {
+    if (!clientId) return;
+
     try {
       const birthDateISO = formData.birthDate ? formData.birthDate.toISOString() : undefined;
       const { subjects: subjectForm, ...otherData } = formData;
 
       const data = { ...otherData, birthDate: birthDateISO };
 
-      // const result = await editClient(data);
+      const result = await updateClient({
+        query: {
+          id: clientId,
+        },
+        body: data,
+      });
 
-      // if (!result.data) throw new Error('Не удалось создать клиента');
+      if (!result.data) throw new Error('Не удалось изменить клиента');
 
-      // await createClientSubjects({
-      //   clientId: result.data?.id,
-      //   subjectsForm: subjectForm,
-      // });
+      const oldClientSubjectsIds = clientData?.client_subjects?.map(({ id }) => id) || [];
+      if (oldClientSubjectsIds.length) {
+        await deleteManyClientSubject({ ids: oldClientSubjectsIds });
+      }
+
+      await createClientSubjectsRequest({
+        clientId: result.data?.id,
+        subjects: subjectForm,
+      });
 
       handleClose();
       message.success('Клиент успешно изменен');

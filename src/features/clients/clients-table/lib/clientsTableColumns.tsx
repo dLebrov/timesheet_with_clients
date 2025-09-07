@@ -57,6 +57,7 @@ export const clientsTableColumns = ({
     title: 'Описание',
     dataIndex: 'description',
     key: 'description',
+    width: 400,
   },
   {
     title: 'Создан',

@@ -1,7 +1,7 @@
 import { Form, message, Modal } from 'antd';
 import { useMemo } from 'react';
 
-import { clientsApi } from '@/entities/clients';
+import { clientsApi, useClientSubject } from '@/entities/clients';
 
 import { ClientForm, TClientForm } from '../../client-form';
 
@@ -12,12 +12,11 @@ type TCreateClientModal = {
 
 export const CreateClientModal = ({ isModalVisible, onCloseCreateClient }: TCreateClientModal) => {
   const [form] = Form.useForm<TClientForm>();
+  const { createClientSubjectsRequest, isLoading: isLoadingClientSubject } = useClientSubject();
   const { data: subjects, isLoading: isLoadingSubjects } = clientsApi.useGetSubjectsQuery();
   const [createClient, { isLoading: isLoadingCreateClient }] = clientsApi.useCreateClientMutation();
-  const [createClientSubject, { isLoading: isLoadingClientSubject }] =
-    clientsApi.useCreateClientSubjectMutation();
 
-  const isLoading = isLoadingCreateClient || isLoadingClientSubject;
+  const isLoading = isLoadingCreateClient || isLoadingClientSubject || isLoadingSubjects;
 
   const options = useMemo(() => {
     return (
@@ -33,17 +32,6 @@ export const CreateClientModal = ({ isModalVisible, onCloseCreateClient }: TCrea
     onCloseCreateClient();
   };
 
-  const createClientSubjects = async ({
-    clientId,
-    subjectsForm,
-  }: {
-    clientId: number;
-    subjectsForm: Array<number>;
-  }) => {
-    const requests = subjectsForm.map((subjectId) => createClientSubject({ clientId, subjectId }));
-    await Promise.all(requests);
-  };
-
   const handleSubmitForm = async (formData: TClientForm) => {
     try {
       const birthDateISO = formData.birthDate ? formData.birthDate.toISOString() : undefined;
@@ -55,9 +43,9 @@ export const CreateClientModal = ({ isModalVisible, onCloseCreateClient }: TCrea
 
       if (!result.data) throw new Error('Не удалось создать клиента');
 
-      await createClientSubjects({
+      await createClientSubjectsRequest({
         clientId: result.data?.id,
-        subjectsForm: subjectForm,
+        subjects: subjectForm,
       });
 
       handleClose();

@@ -40,7 +40,11 @@ export const ClientForm = ({
       <Form.Item name="group" label="Группа">
         <Input placeholder="Введите группу(ОГЭ, ЕГЭ и тд.)" />
       </Form.Item>
-      <Form.Item name="subjects" label="Предметы">
+      <Form.Item
+        name="subjects"
+        label="Предметы"
+        tooltip="Добавить новые предметы можно через меню пользователя"
+      >
         <Select
           loading={isLoadingSubjects}
           disabled={isLoadingSubjects}
