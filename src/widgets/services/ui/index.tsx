@@ -2,22 +2,22 @@ import { Drawer } from 'antd';
 import { memo, useMemo } from 'react';
 
 import { useCustomTheme } from '@/entities/theme';
-import { AddSubject } from '@/features/subjects/add-subjects';
+import { AddServices } from '@/features/services/add-services';
 import { getDrawerStyles } from '@/shared/lib/get-drawer-styles';
 
-type TSubjectsProps = {
+type TServicesProps = {
   isOpenSidebar: boolean;
   onCloseSidebar: () => void;
 };
 
-export const Subjects = memo(({ isOpenSidebar, onCloseSidebar }: TSubjectsProps) => {
+export const Services = memo(({ isOpenSidebar, onCloseSidebar }: TServicesProps) => {
   const { theme } = useCustomTheme();
 
   const drawerStyles = useMemo(() => getDrawerStyles(theme), [theme]);
   return (
     <>
       <Drawer
-        title="Предметы"
+        title="Услуги"
         placement="right"
         closable
         onClose={onCloseSidebar}
@@ -25,7 +25,7 @@ export const Subjects = memo(({ isOpenSidebar, onCloseSidebar }: TSubjectsProps)
         destroyOnHidden
         styles={drawerStyles}
       >
-        <AddSubject />
+        <AddServices />
       </Drawer>
     </>
   );

@@ -1,7 +1,7 @@
 import { Button, Form, Input, message, Modal } from 'antd';
 import classNames from 'classnames/bind';
 
-import { clientsApi } from '@/entities/clients';
+import { subjectApi } from '@/entities/subjects';
 
 import { TCreateSubjectForm } from '../lib/types';
 import styles from './index.module.scss';
@@ -16,7 +16,7 @@ type TCreateSubjectModalProps = {
 
 export const CreateSubjectModal = ({ isModalVisible, onClose }: TCreateSubjectModalProps) => {
   const [form] = Form.useForm<TCreateSubjectForm>();
-  const [createSubject, { isLoading }] = clientsApi.useCreateSubjectMutation();
+  const [createSubject, { isLoading }] = subjectApi.useCreateSubjectMutation();
 
   const handleClose = () => {
     form.resetFields();
@@ -25,7 +25,7 @@ export const CreateSubjectModal = ({ isModalVisible, onClose }: TCreateSubjectMo
 
   const handleSubmitForm = async (formData: TCreateSubjectForm) => {
     try {
-      await createSubject(formData);
+      await createSubject(formData).unwrap();
 
       handleClose();
       message.success('Предмет успешно добавлен');
@@ -39,7 +39,7 @@ export const CreateSubjectModal = ({ isModalVisible, onClose }: TCreateSubjectMo
     <>
       <Modal
         open={isModalVisible}
-        title="Создание клиента"
+        title="Создание Предмета"
         onCancel={handleClose}
         footer={null}
         centered

@@ -1,5 +1,6 @@
 import {
   BookOutlined,
+  DollarOutlined,
   DownOutlined,
   LoginOutlined,
   LogoutOutlined,
@@ -17,6 +18,7 @@ import { useAppDispatch } from '@/app/store/hooks';
 import { ThemeType, useCustomTheme } from '@/entities/theme';
 import { setUser, userRoleName, useUser } from '@/entities/user';
 import { EPaths } from '@/shared/lib';
+import { Services } from '@/widgets/services';
 import { Subjects } from '@/widgets/subjects';
 
 import styles from './index.module.scss';
@@ -26,7 +28,8 @@ const cn = classNames.bind(styles);
 
 export const UserMenu = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [isOpenSidebar, setIsOpenSidebar] = useState(false);
+  const [isOpenSidebarSubjects, setIsOpenSidebarSubjects] = useState(false);
+  const [isOpenSidebarServices, setIsOpenSidebarServices] = useState(false);
 
   const { user } = useUser();
   const dispatch = useAppDispatch();
@@ -48,11 +51,19 @@ export const UserMenu = () => {
   }, []);
 
   const handleClickSubjects = useCallback(() => {
-    setIsOpenSidebar(true);
+    setIsOpenSidebarSubjects(true);
   }, []);
 
   const handleCloseSubjects = useCallback(() => {
-    setIsOpenSidebar(false);
+    setIsOpenSidebarSubjects(false);
+  }, []);
+
+  const handleClickServices = useCallback(() => {
+    setIsOpenSidebarServices(true);
+  }, []);
+
+  const handleCloseServices = useCallback(() => {
+    setIsOpenSidebarServices(false);
   }, []);
 
   const items: MenuProps['items'] = useMemo(() => {
@@ -67,11 +78,19 @@ export const UserMenu = () => {
     return [
       {
         label: (
+          <Typography.Text onClick={handleClickServices}>
+            Услуги <DollarOutlined style={{ marginLeft: 8 }} />
+          </Typography.Text>
+        ),
+        key: '0',
+      },
+      {
+        label: (
           <Typography.Text onClick={handleClickSubjects}>
             Предметы <BookOutlined style={{ marginLeft: 8 }} />
           </Typography.Text>
         ),
-        key: '0',
+        key: '1',
       },
       {
         label: (
@@ -80,7 +99,7 @@ export const UserMenu = () => {
             {themeIcon}
           </Typography.Text>
         ),
-        key: '1',
+        key: '2',
       },
 
       {
@@ -89,10 +108,10 @@ export const UserMenu = () => {
             Выйти <LogoutOutlined style={{ marginLeft: 8 }} />
           </Typography.Text>
         ),
-        key: '2',
+        key: '3',
       },
     ];
-  }, [handleClickLogout, handleClickSubjects, handleClickTheme, theme]);
+  }, [handleClickLogout, handleClickServices, handleClickSubjects, handleClickTheme, theme]);
 
   if (!user) {
     return (
@@ -108,7 +127,8 @@ export const UserMenu = () => {
 
   return (
     <>
-      <Subjects isOpenSidebar={isOpenSidebar} onCloseSidebar={handleCloseSubjects} />
+      <Subjects isOpenSidebar={isOpenSidebarSubjects} onCloseSidebar={handleCloseSubjects} />
+      <Services isOpenSidebar={isOpenSidebarServices} onCloseSidebar={handleCloseServices} />
       <Dropdown menu={{ items }} open={dropdownOpen} onOpenChange={handleOpenChange}>
         <div className={cn(BLOCK_NAME)}>
           <Avatar className={cn(`${BLOCK_NAME}__avatar`)} size="large" icon={<UserOutlined />} />

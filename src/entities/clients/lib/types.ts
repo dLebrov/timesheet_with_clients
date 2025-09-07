@@ -1,3 +1,5 @@
+import { TSubjectResponse } from '@/entities/subjects';
+
 export type TClientSubjects = {
   id: number;
   clientId: number;
@@ -35,16 +37,6 @@ export type TUpdateClientParams = {
     id: number;
   };
   body: TCreateClientParams;
-};
-
-export type TSubjectResponse = {
-  id: number;
-  name: string;
-  createdAt: Date;
-};
-
-export type TCreateSubjectParams = {
-  name: string;
 };
 
 export type TCreateClientSubjectParams = {

@@ -7,8 +7,6 @@ import {
   TClientResponse,
   TCreateClientParams,
   TCreateClientSubjectParams,
-  TCreateSubjectParams,
-  TSubjectResponse,
   TUpdateClientParams,
 } from '../lib/types';
 
@@ -48,28 +46,6 @@ export const clientsApi = createApi({
       }),
       invalidatesTags: ['clients', 'client'],
     }),
-    getSubjects: build.query<TSubjectResponse[], void>({
-      query: () => ({
-        url: `${ENDPOINT_URL}/subjects`,
-        method: 'GET',
-      }),
-      providesTags: ['subjects'],
-    }),
-    createSubject: build.mutation<void, TCreateSubjectParams>({
-      query: (body) => ({
-        url: `${ENDPOINT_URL}/subjects`,
-        method: 'POST',
-        body,
-      }),
-      invalidatesTags: ['subjects'],
-    }),
-    deleteSubject: build.mutation<void, number>({
-      query: (id) => ({
-        url: `${ENDPOINT_URL}/subjects/${id}/delete`,
-        method: 'POST',
-      }),
-      invalidatesTags: ['subjects'],
-    }),
     createClientSubject: build.mutation<void, TCreateClientSubjectParams>({
       query: (body) => ({
         url: `${ENDPOINT_URL}/client_subjects`,
@@ -81,7 +57,7 @@ export const clientsApi = createApi({
     deleteManyClientSubject: build.mutation<void, { ids: number[] }>({
       query: (body) => ({
         url: `${ENDPOINT_URL}/client_subjects/deleteMany`,
-        method: 'POST',
+        method: 'DELETE',
         body,
       }),
     }),

@@ -3,6 +3,7 @@ import moment from 'moment';
 import { useEffect, useMemo } from 'react';
 
 import { clientsApi, useClientSubject } from '@/entities/clients';
+import { subjectApi } from '@/entities/subjects';
 
 import { ClientForm, TClientForm } from '../../client-form';
 
@@ -20,7 +21,7 @@ export const EditClientModal = ({
   const [form] = Form.useForm<TClientForm>();
 
   const { createClientSubjectsRequest, isLoading: isLoadingClientSubject } = useClientSubject();
-  const { data: subjects, isLoading: isLoadingSubjects } = clientsApi.useGetSubjectsQuery();
+  const { data: subjects, isLoading: isLoadingSubjects } = subjectApi.useGetSubjectsQuery();
   const { data: clientData, isLoading: isLoadingClientData } = clientsApi.useGetClientQuery(
     clientId,
     {
@@ -76,17 +77,15 @@ export const EditClientModal = ({
           id: clientId,
         },
         body: data,
-      });
-
-      if (!result.data) throw new Error('Не удалось изменить клиента');
+      }).unwrap();
 
       const oldClientSubjectsIds = clientData?.client_subjects?.map(({ id }) => id) || [];
       if (oldClientSubjectsIds.length) {
-        await deleteManyClientSubject({ ids: oldClientSubjectsIds });
+        await deleteManyClientSubject({ ids: oldClientSubjectsIds }).unwrap();
       }
 
       await createClientSubjectsRequest({
-        clientId: result.data?.id,
+        clientId: result?.id,
         subjects: subjectForm,
       });
 

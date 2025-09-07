@@ -1,4 +1,4 @@
-import { Button, DatePicker, Form, Input, Select } from 'antd';
+import { Button, DatePicker, Form, Input, message, Select } from 'antd';
 import locale from 'antd/es/date-picker/locale/ru_RU';
 import classNames from 'classnames/bind';
 import Cookies from 'js-cookie';
@@ -27,7 +27,7 @@ export const Registration = () => {
       const birthDate = values.birthDate.toDate();
       const phone = `${values.prefix}${values.phone}`;
 
-      const { data } = await createUser({
+      const { access_token, user } = await createUser({
         email,
         gender,
         name,
@@ -37,19 +37,18 @@ export const Registration = () => {
         username,
         birthDate,
         phone,
-      });
+      }).unwrap();
 
-      if (!data) throw new Error('Не удалось создать пользователя');
-
-      Cookies.set('token', data.access_token, {
+      Cookies.set('token', access_token, {
         expires: 7,
         sameSite: 'strict',
       });
-      localStorage.setItem('user', JSON.stringify(data.user));
+      localStorage.setItem('user', JSON.stringify(user));
 
       navigate('/');
     } catch (error) {
       console.error({ error });
+      message.error('Не удалось создать пользователя');
     }
   };
 

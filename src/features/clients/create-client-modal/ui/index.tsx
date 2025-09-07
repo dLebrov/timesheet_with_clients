@@ -2,6 +2,7 @@ import { Form, message, Modal } from 'antd';
 import { useMemo } from 'react';
 
 import { clientsApi, useClientSubject } from '@/entities/clients';
+import { subjectApi } from '@/entities/subjects';
 
 import { ClientForm, TClientForm } from '../../client-form';
 
@@ -13,7 +14,7 @@ type TCreateClientModal = {
 export const CreateClientModal = ({ isModalVisible, onCloseCreateClient }: TCreateClientModal) => {
   const [form] = Form.useForm<TClientForm>();
   const { createClientSubjectsRequest, isLoading: isLoadingClientSubject } = useClientSubject();
-  const { data: subjects, isLoading: isLoadingSubjects } = clientsApi.useGetSubjectsQuery();
+  const { data: subjects, isLoading: isLoadingSubjects } = subjectApi.useGetSubjectsQuery();
   const [createClient, { isLoading: isLoadingCreateClient }] = clientsApi.useCreateClientMutation();
 
   const isLoading = isLoadingCreateClient || isLoadingClientSubject || isLoadingSubjects;
@@ -39,12 +40,10 @@ export const CreateClientModal = ({ isModalVisible, onCloseCreateClient }: TCrea
 
       const data = { ...otherData, birthDate: birthDateISO };
 
-      const result = await createClient(data);
-
-      if (!result.data) throw new Error('Не удалось создать клиента');
+      const result = await createClient(data).unwrap();
 
       await createClientSubjectsRequest({
-        clientId: result.data?.id,
+        clientId: result?.id,
         subjects: subjectForm,
       });
 

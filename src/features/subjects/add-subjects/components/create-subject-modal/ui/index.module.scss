@@ -1,0 +1,9 @@
+.CreateSubjectModal {
+  &__buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 16px;
+    box-sizing: border-box;
+  }
+}

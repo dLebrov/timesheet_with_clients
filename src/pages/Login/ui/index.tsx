@@ -27,17 +27,15 @@ export const Login = () => {
     try {
       const { login, password } = values;
 
-      const { data } = await fetchAuth({ login, password });
-
-      if (!data) throw new Error('Не удалось получить пользователя');
+      const { access_token, user } = await fetchAuth({ login, password }).unwrap();
 
       setErrorMessage(null);
 
-      Cookies.set('token', data.access_token, {
+      Cookies.set('token', access_token, {
         expires: 7,
         sameSite: 'strict',
       });
-      localStorage.setItem('user', JSON.stringify(data.user));
+      localStorage.setItem('user', JSON.stringify(user));
 
       navigate('/');
     } catch (error) {

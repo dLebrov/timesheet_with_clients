@@ -2,7 +2,7 @@ import { Button, Card, message, Spin } from 'antd';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 
-import { clientsApi } from '@/entities/clients';
+import { subjectApi } from '@/entities/subjects';
 
 import { CreateSubjectModal } from '../components/create-subject-modal';
 import styles from './index.module.scss';
@@ -12,8 +12,8 @@ const cn = classNames.bind(styles);
 
 export const AddSubject = () => {
   const [isOpenAddSubject, setIsOpenAddSubject] = useState(false);
-  const { data, isLoading } = clientsApi.useGetSubjectsQuery();
-  const [deleteSubject, { isLoading: isDeleting }] = clientsApi.useDeleteSubjectMutation();
+  const { data, isLoading } = subjectApi.useGetSubjectsQuery();
+  const [deleteSubject, { isLoading: isDeleting }] = subjectApi.useDeleteSubjectMutation();
 
   const handleClickAddSubject = () => {
     setIsOpenAddSubject(true);
@@ -25,7 +25,7 @@ export const AddSubject = () => {
 
   const handleDeleteSubject = async (id: number) => {
     try {
-      await deleteSubject(id);
+      await deleteSubject(id).unwrap();
       message.success('Предмет успешно удален');
     } catch (error) {
       console.error(error);
