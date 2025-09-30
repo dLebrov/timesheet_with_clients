@@ -8,8 +8,6 @@ body {
   touch-action: manipulation;
   -webkit-touch-callout: none;
   user-select: none;
-  user-select: none;
-  text-size-adjust: 100%;
   text-size-adjust: 100%;
   overscroll-behavior: none;
   -webkit-font-smoothing: antialiased;
