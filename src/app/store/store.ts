@@ -1,6 +1,7 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 
 import { clientsApi } from '@/entities/clients';
+import { recordsApi } from '@/entities/records';
 import { serviceApi } from '@/entities/services';
 import { subjectApi } from '@/entities/subjects';
 import { authApi, userApi } from '@/entities/user';
@@ -16,6 +17,7 @@ const store = configureStore({
       clientsApi.middleware,
       subjectApi.middleware,
       serviceApi.middleware,
+      recordsApi.middleware,
     ),
 });
 

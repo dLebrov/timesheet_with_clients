@@ -8,7 +8,7 @@ const cn = classNames.bind(styles);
 
 type TCardDescriptionProps = {
   title: string;
-  value: string;
+  value: string | number | JSX.Element;
 };
 
 export const CardDescription = ({ title, value }: TCardDescriptionProps) => {

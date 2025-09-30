@@ -28,6 +28,12 @@ const Registration = lazy(() =>
   })),
 );
 
+const Records = lazy(() =>
+  import('@/pages/records').then((module) => ({
+    default: module.Records,
+  })),
+);
+
 const BLOCK_NAME = 'PagesRouter';
 const cn = classNames.bind(styles);
 
@@ -46,7 +52,7 @@ export const PagesRouter = () => {
         <Route path={EPaths.Login} element={<Login />} />
         <Route path={EPaths.Calendar} element={<>CALENDAR</>} />
         <Route path={EPaths.Clients} element={<Clients />} />
-        <Route path={EPaths.Records} element={<>RECORDS</>} />
+        <Route path={EPaths.Records} element={<Records />} />
       </Routes>
     </Suspense>
   );

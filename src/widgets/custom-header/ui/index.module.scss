@@ -30,6 +30,7 @@
 
   &__menu-vertical {
     height: 100%;
+    padding-bottom: env(safe-area-inset-bottom);
   }
 
   &__right-container {

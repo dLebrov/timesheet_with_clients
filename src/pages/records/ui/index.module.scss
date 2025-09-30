@@ -1,0 +1,35 @@
+@use '@/shared/styles/media.module.scss' as *;
+
+.Records {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  &__content {
+    flex: 1 1 auto;
+    overflow: hidden;
+  }
+
+  &__title {
+    flex-shrink: 0;
+    margin-bottom: 0 !important;
+  }
+}

@@ -5,7 +5,7 @@ import { ENDPOINT_URL } from '@/shared/lib';
 
 import {
   TClientResponse,
-  TCreateClientParams,
+  TCreateClientBody,
   TCreateClientSubjectParams,
   TUpdateClientParams,
 } from '../lib/types';
@@ -30,7 +30,7 @@ export const clientsApi = createApi({
       }),
       providesTags: ['client'],
     }),
-    createClient: build.mutation<TClientResponse, TCreateClientParams>({
+    createClient: build.mutation<TClientResponse, TCreateClientBody>({
       query: (body) => ({
         url: `${ENDPOINT_URL}/clients`,
         method: 'POST',
@@ -60,6 +60,7 @@ export const clientsApi = createApi({
         method: 'DELETE',
         body,
       }),
+      invalidatesTags: ['clients', 'client'],
     }),
   }),
 });

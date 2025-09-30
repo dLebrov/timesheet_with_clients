@@ -24,7 +24,7 @@ export type TClientResponse = {
   createdAt: Date;
 };
 
-export type TCreateClientParams = {
+export type TCreateClientBody = {
   surname: string | undefined;
   name: string;
   birthDate: string | undefined;
@@ -36,7 +36,7 @@ export type TUpdateClientParams = {
   query: {
     id: number;
   };
-  body: TCreateClientParams;
+  body: TCreateClientBody;
 };
 
 export type TCreateClientSubjectParams = {

@@ -1,6 +1,7 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
 import { clientsApi } from '@/entities/clients';
+import { recordsApi } from '@/entities/records';
 import { serviceApi } from '@/entities/services';
 import { subjectApi } from '@/entities/subjects';
 import themeReducer from '@/entities/theme/model/themeSlice';
@@ -16,4 +17,5 @@ export const mainReducer = combineReducers({
   [clientsApi.reducerPath]: clientsApi.reducer,
   [subjectApi.reducerPath]: subjectApi.reducer,
   [serviceApi.reducerPath]: serviceApi.reducer,
+  [recordsApi.reducerPath]: recordsApi.reducer,
 });

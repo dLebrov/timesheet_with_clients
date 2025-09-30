@@ -8,5 +8,10 @@ export const getDrawerStyles = (theme: ThemeType | null): DrawerStyles => ({
   },
   body: {
     background: theme === ThemeType.DARK ? '#141414' : '#ffffff',
+    paddingBottom: 'env(safe-area-inset-bottom)',
+  },
+  wrapper: {
+    paddingTop: 'env(safe-area-inset-top)',
+    paddingBottom: 'env(safe-area-inset-bottom)',
   },
 });

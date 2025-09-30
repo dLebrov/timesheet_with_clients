@@ -27,8 +27,8 @@ export const App = () => {
           }}
           locale={ruRU}
         >
-          <AntdApp>
-            <Layout className={cn(BLOCK_NAME)}>
+          <AntdApp rootClassName={cn(BLOCK_NAME)}>
+            <Layout>
               <div className={cn(`${BLOCK_NAME}__header`)}>
                 <CustomHeader />
               </div>

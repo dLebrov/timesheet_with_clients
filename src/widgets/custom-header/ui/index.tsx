@@ -8,7 +8,7 @@ import { useCustomTheme } from '@/entities/theme/hooks/useCustomTheme';
 import { ThemeType } from '@/entities/theme/lib/types';
 import { useUser } from '@/entities/user';
 import { UserMenu } from '@/features/user-menu';
-import { useDeviceDetect } from '@/shared/hooks/useDeviceDetect';
+import { useDeviceDetect } from '@/shared/hooks';
 import { getDrawerStyles } from '@/shared/lib/get-drawer-styles';
 
 import { MENU_ITEMS } from '../lib/constants';

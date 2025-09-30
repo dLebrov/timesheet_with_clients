@@ -4,24 +4,27 @@ import classNames from 'classnames/bind';
 import moment from 'moment';
 import { memo } from 'react';
 
-import { getClientName, TClientResponse, TClientSubjects } from '@/entities/clients';
+import { getClientName, TClientSubjects } from '@/entities/clients';
+import { CardDescription } from '@/shared/components/card-description';
 
-import { CardDescription } from '../components/card-description';
+import { TClient } from '../../clients-table/lib/types';
 import styles from './index.module.scss';
 
 const BLOCK_NAME = 'ClientsCards';
 const cn = classNames.bind(styles);
 
 type TClientsCardsProps = {
-  data: TClientResponse[] | undefined;
+  data: TClient[] | undefined;
   isLoading: boolean;
   onEditClient: (id: number) => void;
 };
 export const ClientsCards = memo(function ClientsCards({
-  data,
+  data = [],
   isLoading,
   onEditClient,
 }: TClientsCardsProps) {
+  const hasData = data.length > 0;
+
   return (
     <div
       className={cn(BLOCK_NAME, {
@@ -29,8 +32,8 @@ export const ClientsCards = memo(function ClientsCards({
       })}
     >
       {isLoading && <Spin size="large" />}
-      {!isLoading && !data?.length && <Empty description="Нет данных" />}
-      {!isLoading && data?.length && (
+      {!isLoading && !hasData && <Empty description="Нет данных" />}
+      {!isLoading && hasData && (
         <div className={cn(`${BLOCK_NAME}__cards-container`)}>
           {data?.map((client) => {
             const { id, description, birthDate, group, client_subjects } = client;

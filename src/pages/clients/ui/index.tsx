@@ -7,7 +7,7 @@ import { ClientsCards } from '@/features/clients/clients-cards';
 import { ClientsTable } from '@/features/clients/clients-table';
 import { CreateClientModal } from '@/features/clients/create-client-modal';
 import { EditClientModal } from '@/features/clients/edit-client-modal';
-import { useDeviceDetect } from '@/shared/hooks/useDeviceDetect';
+import { useDeviceDetect } from '@/shared/hooks';
 
 import styles from './index.module.scss';
 

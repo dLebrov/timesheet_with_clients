@@ -1,20 +1,20 @@
 import { Empty, Skeleton, Table, TablePaginationConfig } from 'antd';
 import { memo, useCallback, useMemo, useState } from 'react';
 
-import { clientsTableColumns } from '../lib/clientsTableColumns';
-import { TClient } from '../lib/types';
+import { recordsTableColumns } from '../lib/recordsTableColumns';
+import { TRecord } from '../lib/types';
 
-type TClientsTableProps = {
-  data: TClient[] | undefined;
+type TRecordsTableProps = {
+  data: TRecord[] | undefined;
   isLoading: boolean;
-  onEditClient: (id: number) => void;
+  onEditRecord: (id: number) => void;
 };
 
-export const ClientsTable = memo(function ClientsTable({
+export const RecordsTable = memo(function RecordsTable({
   data,
   isLoading,
-  onEditClient,
-}: TClientsTableProps) {
+  onEditRecord,
+}: TRecordsTableProps) {
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 10,
@@ -26,11 +26,11 @@ export const ClientsTable = memo(function ClientsTable({
       pageSize: paginationConfig.pageSize!,
     });
   }, []);
-  const columns = useMemo(() => clientsTableColumns({ onEditClient }), [onEditClient]);
+  const columns = useMemo(() => recordsTableColumns({ onEditRecord }), [onEditRecord]);
 
   return (
     <div style={{ height: '100%' }}>
-      <Table<TClient>
+      <Table<TRecord>
         dataSource={data ?? []}
         columns={columns}
         rowKey="id"
