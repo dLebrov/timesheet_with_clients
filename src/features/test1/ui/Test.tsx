@@ -1,7 +1,4 @@
-import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
-
 import { TEST_TEST_IDS } from '../lib/constants';
-import { userActions } from '../model/testSlice';
 
 export const Test = () => {
   // const { user } = useAppSelector((state) => state.test1.testR);

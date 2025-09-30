@@ -7,10 +7,10 @@ body {
   -webkit-overflow-scrolling: touch;
   touch-action: manipulation;
   -webkit-touch-callout: none;
-  -webkit-user-select: none;
   user-select: none;
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
+  user-select: none;
+  text-size-adjust: 100%;
+  text-size-adjust: 100%;
   overscroll-behavior: none;
   -webkit-font-smoothing: antialiased;
   background-color: #2981fd;
