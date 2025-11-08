@@ -49,6 +49,7 @@ export const RecordsCards = memo(function RecordsCards({
               clients,
               services,
               date,
+              subjects,
               isPaid,
               price,
               status,
@@ -71,6 +72,7 @@ export const RecordsCards = memo(function RecordsCards({
                   <div className={cn(`${BLOCK_NAME}__card-description`)}>
                     {description && <CardDescription title="Описание" value={description} />}
                     {clients && <CardDescription title="Клиент" value={getClientName(clients)} />}
+                    {subjects && <CardDescription title="Предмет" value={subjects.name} />}
                     {recordTime && <CardDescription title="Время Записи" value={recordTime} />}
                     {recordDate && <CardDescription title="Дата Записи" value={recordDate} />}
                     <CardDescription title="Оплачено" value={isPaidIcon(isPaid)} />

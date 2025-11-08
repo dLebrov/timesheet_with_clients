@@ -80,14 +80,16 @@ export const EditClientModal = ({
       }).unwrap();
 
       const oldClientSubjectsIds = clientData?.client_subjects?.map(({ id }) => id) || [];
-      if (oldClientSubjectsIds.length) {
+      if (oldClientSubjectsIds.length > 0) {
         await deleteManyClientSubject({ ids: oldClientSubjectsIds }).unwrap();
       }
 
-      await createClientSubjectsRequest({
-        clientId: result?.id,
-        subjects: subjectForm,
-      });
+      if (subjectForm.length > 0) {
+        await createClientSubjectsRequest({
+          clientId: result?.id,
+          subjects: subjectForm,
+        });
+      }
 
       handleClose();
       message.success('Клиент успешно изменен');

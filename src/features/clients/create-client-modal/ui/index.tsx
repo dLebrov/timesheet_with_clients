@@ -42,10 +42,12 @@ export const CreateClientModal = ({ isModalVisible, onCloseCreateClient }: TCrea
 
       const result = await createClient(data).unwrap();
 
-      await createClientSubjectsRequest({
-        clientId: result?.id,
-        subjects: subjectForm,
-      });
+      if (subjectForm.length > 0) {
+        await createClientSubjectsRequest({
+          clientId: result?.id,
+          subjects: subjectForm,
+        });
+      }
 
       handleClose();
       message.success('Клиент успешно создан');

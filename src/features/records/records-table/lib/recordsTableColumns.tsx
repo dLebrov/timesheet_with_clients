@@ -39,6 +39,12 @@ export const recordsTableColumns = ({
     render: (_, { clients }) => getClientName(clients),
   },
   {
+    title: 'Предмет',
+    key: 'subject.name',
+    render: (_, { subjects }) => subjects?.name,
+    onCell: () => ({ style: { minWidth: 100 } }),
+  },
+  {
     title: 'Описание',
     dataIndex: 'description',
     key: 'description',

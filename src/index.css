@@ -50,6 +50,19 @@ body {
   }
 }
 
+.ant-modal-body {
+  max-height: calc(
+    100vh - 150px - env(safe-area-inset-top) - env(safe-area-inset-bottom)
+  ) !important;
+  overflow-y: auto !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.ant-modal-body::-webkit-scrollbar {
+  display: none !important;
+}
+
 * {
   padding: 0;
   margin: 0;

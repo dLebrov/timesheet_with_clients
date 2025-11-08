@@ -1,0 +1,1 @@
+export { EditRecordModal } from './ui';

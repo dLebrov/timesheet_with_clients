@@ -3,6 +3,8 @@ import classNames from 'classnames/bind';
 import { useState } from 'react';
 
 import { recordsApi } from '@/entities/records';
+import { CreateRecordModal } from '@/features/records/create-record-modal';
+import { EditRecordModal } from '@/features/records/edit-record-modal';
 import { RecordsCards } from '@/features/records/records-cards';
 import { RecordsTable } from '@/features/records/records-table';
 import { useDeviceDetect } from '@/shared/hooks';
@@ -56,15 +58,15 @@ export const Records = () => {
           <RecordsTable data={data} isLoading={isLoading} onEditRecord={handleOpenEditRecord} />
         )}
       </div>
-      {/* <CreateClientModal
+      <CreateRecordModal
         isModalVisible={isModalCreateVisible}
-        onCloseCreateClient={handleCloseCreateRecord}
+        onCloseCreateRecord={handleCloseCreateRecord}
       />
-      <EditClientModal
+      <EditRecordModal
         isModalVisible={isModalEditVisible}
-        onCloseEditClient={handleCloseEditRecord}
-        clientId={recordId}
-      /> */}
+        onCloseEditRecord={handleCloseEditRecord}
+        recordId={recordId}
+      />
     </div>
   );
 };

@@ -27,7 +27,13 @@ export const ClientForm = ({
   actionLabel,
 }: TClientFormProps) => {
   return (
-    <Form<TClientForm> form={form} scrollToFirstError layout="vertical" onFinish={onSubmitForm}>
+    <Form<TClientForm>
+      form={form}
+      scrollToFirstError
+      layout="vertical"
+      onFinish={onSubmitForm}
+      initialValues={{ subjects: [] }}
+    >
       <Form.Item name="surname" label="Фамилия">
         <Input placeholder="Введите фамилию" />
       </Form.Item>

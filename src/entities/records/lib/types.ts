@@ -1,5 +1,6 @@
 import { TClientResponse } from '@/entities/clients';
 import { TService } from '@/entities/services';
+import { TSubjectResponse } from '@/entities/subjects';
 
 export enum ERecordStatus {
   Processed = 'processed',
@@ -12,10 +13,12 @@ export type TRecordResponse = {
   id: number;
   userId: number;
   // users: {};
-  clientId: number;
-  clients: TClientResponse;
   serviceId: number;
   services: TService;
+  clientId: number;
+  clients: TClientResponse;
+  subjectId: number;
+  subjects: TSubjectResponse | null;
   status: ERecordStatus;
   isPaid: boolean;
   description: string;
@@ -27,16 +30,16 @@ export type TRecordResponse = {
 };
 
 export type TCreateRecordBody = {
-  userId: 0;
-  clientId: 0;
-  serviceId: 0;
-  status: 'processed';
-  isPaid: true;
-  description: 'string';
-  price: 0;
-  date: 'string';
-  start_time: 'string';
-  end_time: 'string';
+  serviceId: number;
+  clientId: number;
+  subjectId: number;
+  description: string;
+  start_time: string;
+  end_time: string;
+  date: string;
+  price: number;
+  status: ERecordStatus;
+  isPaid: boolean;
 };
 
 export type TUpdateRecordParams = {
