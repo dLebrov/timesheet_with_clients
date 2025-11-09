@@ -48,3 +48,9 @@ export type TUpdateRecordParams = {
   };
   body: TCreateRecordBody;
 };
+
+export type TSearchRecordsQueryParams = {
+  date: string;
+  startTime: string;
+  endTime: string;
+};

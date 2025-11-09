@@ -90,6 +90,7 @@ export const RecordForm = ({
           options={subjectOptions}
           onChange={(value) => form.setFieldValue('subjectId', value ?? null)}
           placeholder="Выберите предмет"
+          notFoundContent="Не найдено привязанных предметов к клиенту"
         />
       </Form.Item>
       <Form.Item name="description" label="Описание">

@@ -17,9 +17,12 @@ export const CreateRecordModal = ({ isModalVisible, onCloseCreateRecord }: TCrea
   const { data: clients, isLoading: isLoadingClients } = clientsApi.useGetClientsQuery();
   const { data: services, isLoading: isLoadingServices } = serviceApi.useGetServicesQuery();
   const [createRecord, { isLoading: isLoadingCreateRecord }] = recordsApi.useCreateRecordMutation();
+  const [searchRecords, { isLoading: isLoadingSearchRecords }] =
+    recordsApi.useLazySearchRecordsByDateAndTimeQuery();
   const clientId = Form.useWatch('clientId', form);
 
-  const isLoading = isLoadingClients || isLoadingServices || isLoadingCreateRecord;
+  const isLoading =
+    isLoadingClients || isLoadingServices || isLoadingCreateRecord || isLoadingSearchRecords;
 
   const serviceOptions = useMemo(() => {
     return (
@@ -58,11 +61,33 @@ export const CreateRecordModal = ({ isModalVisible, onCloseCreateRecord }: TCrea
   const handleSubmitForm = async (formData: TRecordForm) => {
     try {
       const copyFormData: TRecordForm = { ...formData };
-      // @ts-ignore
-      delete copyFormData.timeRange;
       const dateISO = copyFormData.date.toISOString();
       const startTimeISO = copyFormData.start_time.toISOString();
       const endTimeISO = copyFormData.end_time.toISOString();
+
+      const result = await searchRecords({
+        date: dateISO,
+        startTime: startTimeISO,
+        endTime: endTimeISO,
+      });
+
+      if (result.data) {
+        form.setFields([
+          {
+            name: 'date',
+            errors: ['На выбранную дату и время уже есть запись'],
+          },
+          {
+            name: 'timeRange',
+            errors: ['На выбранную дату и время уже есть запись'],
+          },
+        ]);
+        return;
+      }
+
+      // @ts-ignore
+      delete copyFormData.timeRange;
+
       const data = {
         ...copyFormData,
         date: dateISO,

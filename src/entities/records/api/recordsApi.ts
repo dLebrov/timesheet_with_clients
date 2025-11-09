@@ -3,7 +3,12 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 import { baseQuery } from '@/shared/api/baseQuery';
 import { ENDPOINT_URL } from '@/shared/lib';
 
-import { TCreateRecordBody, TRecordResponse, TUpdateRecordParams } from '../lib/types';
+import {
+  TCreateRecordBody,
+  TRecordResponse,
+  TSearchRecordsQueryParams,
+  TUpdateRecordParams,
+} from '../lib/types';
 
 export const recordsApi = createApi({
   baseQuery,
@@ -47,6 +52,13 @@ export const recordsApi = createApi({
         method: 'DELETE',
       }),
       invalidatesTags: ['records'],
+    }),
+    searchRecordsByDateAndTime: build.query<TRecordResponse, TSearchRecordsQueryParams>({
+      query: ({ date, startTime, endTime }) => ({
+        url: `${ENDPOINT_URL}/records/search`,
+        method: 'GET',
+        params: { date, startTime, endTime },
+      }),
     }),
   }),
 });
