@@ -1,5 +1,5 @@
 import { Form, message, Modal } from 'antd';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { useEffect, useMemo } from 'react';
 
 import { clientsApi, getClientName } from '@/entities/clients';
@@ -41,13 +41,13 @@ export const EditRecordModal = ({
         clientId: recordData.clientId,
         subjectId: recordData.subjectId,
         description: recordData.description,
-        start_time: moment(recordData.start_time),
-        end_time: moment(recordData.end_time),
-        date: moment(recordData.date),
+        start_time: dayjs(recordData.start_time),
+        end_time: dayjs(recordData.end_time),
+        date: dayjs(recordData.date),
         price: recordData.price,
         status: recordData.status,
         isPaid: recordData.isPaid,
-        timeRange: [moment(recordData.start_time), moment(recordData.end_time)],
+        timeRange: [dayjs(recordData.start_time), dayjs(recordData.end_time)],
       };
 
       form.setFieldsValue(formData);

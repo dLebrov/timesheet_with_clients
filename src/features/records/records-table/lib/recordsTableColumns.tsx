@@ -1,6 +1,6 @@
 import { EditOutlined } from '@ant-design/icons';
 import { Button, TableProps } from 'antd';
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 import { getClientName } from '@/entities/clients';
 import { formatNumberWithPoints } from '@/shared/_utils/format-number-with-points';
@@ -32,6 +32,7 @@ export const recordsTableColumns = ({
     title: 'Название Услуги',
     dataIndex: ['services', 'name'],
     key: 'services.name',
+    width: 170,
   },
   {
     title: 'Клиент',
@@ -57,13 +58,15 @@ export const recordsTableColumns = ({
       return getRecordTime({ start_time, end_time });
     },
     align: 'center',
+    width: 150,
   },
   {
     title: 'Дата Записи',
     dataIndex: 'date',
     key: 'date',
-    render: (date) => (date ? moment(date).format('DD.MM.YYYY') : null),
+    render: (date) => (date ? dayjs(date).format('DD.MM.YYYY') : null),
     align: 'center',
+    width: 150,
   },
   {
     title: 'Оплачено',

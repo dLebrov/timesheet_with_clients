@@ -1,7 +1,7 @@
 import { EditOutlined } from '@ant-design/icons';
 import { Button, Card, Empty, Spin } from 'antd';
 import classNames from 'classnames/bind';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { memo } from 'react';
 
 import { getClientName } from '@/entities/clients';
@@ -55,7 +55,7 @@ export const RecordsCards = memo(function RecordsCards({
               status,
             }) => {
               const recordTime = getRecordTime({ start_time, end_time });
-              const recordDate = date ? moment(date).format('DD.MM.YYYY') : null;
+              const recordDate = date ? dayjs(date).format('DD.MM.YYYY') : null;
 
               return (
                 <Card

@@ -1,7 +1,7 @@
 import { EditOutlined } from '@ant-design/icons';
 import { Button, Card, Empty, Spin } from 'antd';
 import classNames from 'classnames/bind';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { memo } from 'react';
 
 import { getClientName, TClientSubjects } from '@/entities/clients';
@@ -56,7 +56,7 @@ export const ClientsCards = memo(function ClientsCards({
                   {birthDate && (
                     <CardDescription
                       title="День рождения"
-                      value={moment(birthDate).format('DD.MM.YYYY')}
+                      value={dayjs(birthDate).format('DD.MM.YYYY')}
                     />
                   )}
                   {group && <CardDescription title="Группа" value={group} />}

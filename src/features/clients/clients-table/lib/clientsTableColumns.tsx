@@ -1,6 +1,6 @@
 import { EditOutlined } from '@ant-design/icons';
 import { Button, TableProps } from 'antd';
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 import { TClientSubjects } from '@/entities/clients';
 
@@ -28,6 +28,7 @@ export const clientsTableColumns = ({
     title: 'Фамилия',
     dataIndex: 'surname',
     key: 'surname',
+    width: 130,
   },
   {
     title: 'Имя',
@@ -38,13 +39,14 @@ export const clientsTableColumns = ({
     title: 'Дата рождения',
     dataIndex: 'birthDate',
     key: 'birthDate',
-    render: (date) => (date ? moment(date).format('DD.MM.YYYY') : null),
+    render: (date) => (date ? dayjs(date).format('DD.MM.YYYY') : null),
     width: 150,
   },
   {
     title: 'Группа',
     dataIndex: 'group',
     key: 'group',
+    width: 120,
   },
   {
     title: 'Предметы',
@@ -52,6 +54,7 @@ export const clientsTableColumns = ({
     key: 'client_subjects',
     render: (subjectsData) =>
       subjectsData.map(({ subjects }: TClientSubjects) => subjects.name).join(', '),
+    width: 120,
   },
   {
     title: 'Описание',
@@ -63,6 +66,6 @@ export const clientsTableColumns = ({
     title: 'Создан',
     dataIndex: 'createdAt',
     key: 'createdAt',
-    render: (date) => moment(date).format('DD.MM.YYYY'),
+    render: (date) => dayjs(date).format('DD.MM.YYYY'),
   },
 ];

@@ -1,5 +1,5 @@
 import { Form, message, Modal } from 'antd';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { useEffect, useMemo } from 'react';
 
 import { clientsApi, useClientSubject } from '@/entities/clients';
@@ -41,7 +41,7 @@ export const EditClientModal = ({
         surname: clientData.surname ?? undefined,
         group: clientData.group ?? undefined,
         description: clientData.description ?? undefined,
-        birthDate: clientData.birthDate ? moment(clientData.birthDate) : undefined,
+        birthDate: clientData.birthDate ? dayjs(clientData.birthDate) : undefined,
         subjects: clientData.client_subjects?.map(({ subjectId }) => subjectId) || [],
       };
 
