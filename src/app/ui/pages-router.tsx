@@ -34,6 +34,12 @@ const Records = lazy(() =>
   })),
 );
 
+const RecordsCalendar = lazy(() =>
+  import('@/pages/records-calendar').then((module) => ({
+    default: module.RecordsCalendar,
+  })),
+);
+
 const BLOCK_NAME = 'PagesRouter';
 const cn = classNames.bind(styles);
 
@@ -50,7 +56,7 @@ export const PagesRouter = () => {
         <Route index element={<MainPage />} />
         <Route path={EPaths.Registration} element={<Registration />} />
         <Route path={EPaths.Login} element={<Login />} />
-        <Route path={EPaths.Calendar} element={<>CALENDAR</>} />
+        <Route path={EPaths.Calendar} element={<RecordsCalendar />} />
         <Route path={EPaths.Clients} element={<Clients />} />
         <Route path={EPaths.Records} element={<Records />} />
       </Routes>

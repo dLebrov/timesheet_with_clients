@@ -5,11 +5,11 @@ import moment from 'moment';
 import { memo } from 'react';
 
 import { getClientName } from '@/entities/clients';
+import { formatNumberWithPoints } from '@/shared/_utils/format-number-with-points';
+import { getRecordTime } from '@/shared/_utils/get-record-time';
 import { CardDescription } from '@/shared/components/card-description';
 
 import { TRecord } from '../../records-table/lib/types';
-import { formatNumberWithPoints } from '../../utils/format-number-with-points';
-import { getRecordTime } from '../../utils/get-record-time';
 import { getStatusText } from '../../utils/get-status-text';
 import { isPaidIcon } from '../../utils/is-paid-icon';
 import styles from './index.module.scss';
@@ -59,6 +59,7 @@ export const RecordsCards = memo(function RecordsCards({
 
               return (
                 <Card
+                  key={id}
                   title={services.name}
                   extra={
                     <Button
